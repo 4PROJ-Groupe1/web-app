@@ -12,6 +12,7 @@ COPY package.json ./
 
 COPY package-lock.json ./
 
+RUN npm install -g react
 RUN npm install -g npm@7.5.4
 
 # add app
