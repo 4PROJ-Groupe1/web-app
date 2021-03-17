@@ -19,6 +19,8 @@ COPY webapp/package-lock.json ./
 RUN npm install -g react
 RUN npm install
 
+EXPOSE 3000
+
 # add app
 COPY webapp/. ./
 
