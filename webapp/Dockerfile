@@ -8,9 +8,9 @@ WORKDIR /
 ENV PATH /node_modules/.bin:$PATH
 
 # install app dependencies
-COPY package.json ./
+COPY ./package.json ./
 
-COPY package-lock.json ./
+COPY ./package-lock.json ./
 
 RUN npm install -g react
 RUN npm install
