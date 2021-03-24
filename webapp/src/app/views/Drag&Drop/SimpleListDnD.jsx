@@ -54,8 +54,8 @@ class SimpleListDnD extends Component {
 
     const items = reorder(
       this.state.items,
-      result.source.index,
-      result.destination.index
+      result.source.db,
+      result.destination.db
     );
 
     this.setState({
