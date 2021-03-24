@@ -56,8 +56,8 @@ class SimpleHorizontalList extends Component {
 
     const items = reorder(
       this.state.items,
-      result.source.db,
-      result.destination.db
+      result.source.index,
+      result.destination.index
     );
 
     this.setState({
