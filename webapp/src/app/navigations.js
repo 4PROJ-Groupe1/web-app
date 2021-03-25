@@ -10,6 +10,26 @@ export const navigations = [
     icon: "shopping_cart"
   },
   {
+    name: "Orders",
+    path: "/orders",
+    icon: "local_shipping"
+  },
+  {
+    name: "Supply",
+    path: "/supply",
+    icon: "inventory"
+  },
+  {
+    name: "Monitoring",
+    path: "/monitoring",
+    icon: "visibility"
+  },
+  {
+    name: "Stats",
+    path: "/stats",
+    icon: "insert_chart_outlined"
+  },
+  /*{
     name: "Dashboard",
     path: "/dashboard/analytics",
     icon: "dashboard"
@@ -204,7 +224,7 @@ export const navigations = [
     name: "Map",
     icon: "add_location",
     path: "/map"
-  },
+  },*/
   
   
 ];

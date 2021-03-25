@@ -12,6 +12,10 @@ import formsRoutes from "./views/forms/FormsRoutes";
 import mapRoutes from "./views/map/MapRoutes";
 import homeRoutes from "./views/home/HomeRoutes";
 import productsRoutes from "./views/products/ProductsRoutes";
+import ordersRoutes from "./views/orders/OrdersRoutes";
+import supplyRoutes from "./views/supply/SupplyRoutes";
+import monitoringRoutes from "./views/monitoring/MonitoringRoutes";
+import statsRoutes from "./views/stats/StatsRoutes";
 
 const redirectRoute = [
   {
@@ -28,17 +32,21 @@ const errorRoute = [
 ];
 
 const routes = [
-  ...productsRoutes,
-  ...homeRoutes,
-  ...sessionRoutes,
-  ...dashboardRoutes,
-  ...materialRoutes,
-  ...utilitiesRoutes,
-  ...dragAndDropRoute,
-  ...formsRoutes,
-  ...mapRoutes,
-  ...redirectRoute,
-  ...errorRoute
+    ...productsRoutes,
+    ...ordersRoutes,
+    ...monitoringRoutes,
+    ...statsRoutes,
+    ...supplyRoutes,
+    ...homeRoutes,
+    ...sessionRoutes,
+    ...dashboardRoutes,
+    ...materialRoutes,
+    ...utilitiesRoutes,
+    ...dragAndDropRoute,
+    ...formsRoutes,
+    ...mapRoutes,
+    ...redirectRoute,
+    ...errorRoute
 ];
 
 export default routes;

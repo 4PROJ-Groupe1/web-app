@@ -1,19 +1,19 @@
 import React from "react";
 import {Breadcrumb} from "../../../matx";
 
-const Products = () => {
+const Monitoring = () => {
     return (
         <div className="m-sm-30">
             <Breadcrumb
                 routeSegments={[
-                    { name: "Products" }
+                    { name: "Monitoring" }
                 ]}
             />
             <div className="m-sm-30">
-                <p>PRODUITS COMPONENT WORKS</p>
+                <p>VISUALISATION GLOBALE COMPONENT WORKS</p>
             </div>
         </div>
     );
 };
 
-export default Products;
+export default Monitoring;

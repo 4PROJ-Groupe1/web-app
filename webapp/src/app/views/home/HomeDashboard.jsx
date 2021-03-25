@@ -3,7 +3,7 @@ import React from "react";
 const HomeDashboard = () => {
     return (
         <div className="m-sm-30">
-            <p>HOME COMPONENT WORKS</p>
+            <p>ACCUEIL COMPONENT WORKS</p>
         </div>
     );
 };
