@@ -14,7 +14,7 @@ import MatxLayout from "./MatxLayout/MatxLayout";
 import AuthGuard from "./auth/AuthGuard";
 
 const App = () => {
-  fetch("https://web-api:8082/")
+  fetch("http://web-api:8082/")
       .then(
           (response) => {
             console.log("Appel / :", response);
@@ -23,7 +23,7 @@ const App = () => {
             console.log("Appel / erreur :", error);
           }
       );
-  fetch("https://web-api:8082/api/test")
+  fetch("http://web-api:8082/api/test")
       .then(
           (response) => {
             console.log("Appel /api/test :", response);
