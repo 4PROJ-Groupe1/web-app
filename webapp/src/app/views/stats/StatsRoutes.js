@@ -2,7 +2,7 @@ import { MatxLoadable } from "matx";
 import { authRoles } from "../../auth/authRoles";
 
 const Stats = MatxLoadable({
-    loader: () => import("./Stats")
+    loader: () => import("./Stats.js")
 })
 
 const statsRoutes = [

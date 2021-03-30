@@ -2,7 +2,7 @@ import { MatxLoadable } from "matx";
 import { authRoles } from "../../auth/authRoles";
 
 const Monitoring = MatxLoadable({
-    loader: () => import("./Monitoring")
+    loader: () => import("./Monitoring.js")
 })
 
 const monitoringRoutes = [
