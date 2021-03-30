@@ -14,7 +14,7 @@ import MatxLayout from "./MatxLayout/MatxLayout";
 import AuthGuard from "./auth/AuthGuard";
 
 const App = () => {
-  fetch("http://web-api:8082/")
+  fetch("http://localhost:8082/")
       .then(
           (response) => {
             console.log("Appel / :", response);
@@ -22,14 +22,22 @@ const App = () => {
           (error) => {
             console.log("Appel / erreur :", error);
           }
+      ).then(
+          (result) => {
+              console.log("Appel / resultat:", result);
+          }
       );
-  fetch("http://web-api:8082/api/test")
+  fetch("http://localhost:8082/api/test")
       .then(
           (response) => {
             console.log("Appel /api/test :", response);
           },
           (error) => {
             console.log("Appel /api/test erreur :", error);
+          }
+      ).then(
+          (result) => {
+              console.log("Appel /api/test resultat:", result);
           }
       );
   return (
