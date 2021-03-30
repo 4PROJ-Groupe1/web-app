@@ -14,6 +14,24 @@ import MatxLayout from "./MatxLayout/MatxLayout";
 import AuthGuard from "./auth/AuthGuard";
 
 const App = () => {
+  fetch("https://web-api:8082/")
+      .then(
+          (response) => {
+            console.log("Appel / :", response);
+          },
+          (error) => {
+            console.log("Appel / erreur :", error);
+          }
+      );
+  fetch("https://web-api:8082/api/test")
+      .then(
+          (response) => {
+            console.log("Appel /api/test :", response);
+          },
+          (error) => {
+            console.log("Appel /api/test erreur :", error);
+          }
+      );
   return (
     <AppContext.Provider value={{ routes }}>
       <Provider store={Store}>
