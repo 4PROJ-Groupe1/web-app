@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: react
+  name: web
 ---
 apiVersion: v1
 data:
@@ -9,28 +9,28 @@ data:
 kind: Secret
 metadata:
   name: regcred
-  namespace: react
+  namespace: web
 type: kubernetes.io/dockerconfigjson
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: site-4proj-react
-  namespace: react
+  name: webapp
+  namespace: web
 spec:
   selector:
     matchLabels:
-      app: react
+      app: web-app
       tier: frontend
   replicas: 2
   template:
     metadata:
       labels:
-        app: react
+        app: web-app
         tier: frontend
     spec:
       containers:
-        - name: site-4proj
+        - name: web-app
           image: "xamyp/site-4proj:latest"
           ports:
             - name: http
@@ -38,16 +38,55 @@ spec:
       imagePullSecrets:
         - name: regcred
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi
+  namespace: web
+spec:
+  selector:
+    matchLabels:
+      app: web-api
+      tier: backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: web-api
+        tier: backend
+    spec:
+     containers:
+       - name: web-api
+         image: "xamyp/back:latest"
+         ports:
+           - name: api
+             containerPort: 8082
+     imagePullSecrets:
+       - name: regcred
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: react
-  namespace: react
+  name: web-app
+  namespace: web
 spec:
   selector:
-    app: react
+    app: web-app
     tier: frontend
   ports:
   - protocol: TCP
     port: 3000
     targetPort: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-api
+  namespace: web
+spec:
+  selector:
+    app: web-api
+    tier: backend
+  ports:
+  - port: 8082
+    protocol: TCP
