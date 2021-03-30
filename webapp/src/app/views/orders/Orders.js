@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import {Breadcrumb} from "../../../matx";
+import {Breadcrumb, SimpleCard} from "../../../matx";
+import OrdersTable from "./OrdersTable"; 
 
 class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            test: "test"
         }
     }
 
@@ -22,7 +23,9 @@ class Orders extends Component {
                     ]}
                 />
                 <div className="m-sm-30">
-                    <p>COMMANDES / LIVRAISONS COMPONENT WORKS</p>
+                    <SimpleCard title="Simple Table" dataItem={this.state.test}>
+                        <OrdersTable />
+                    </SimpleCard>
                 </div>
             </div>
         );

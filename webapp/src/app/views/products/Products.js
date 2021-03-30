@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import {Breadcrumb} from "../../../matx";
+import {Breadcrumb, SimpleCard} from "../../../matx";
+import ProductTable from "./ProductTable"; 
 
 class Products extends Component {
     constructor(props) {
@@ -22,7 +23,9 @@ class Products extends Component {
                     ]}
                 />
                 <div className="m-sm-30">
-                    <p>PRODUITS COMPONENT WORKS</p>
+                    <SimpleCard title="Simple Table">
+                        <ProductTable />
+                    </SimpleCard>
                 </div>
             </div>
         );
