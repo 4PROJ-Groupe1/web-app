@@ -15,7 +15,7 @@ class HomeDashboard extends Component {
     render() {
         return (
             <div className="m-sm-30">
-                <p>ACCUEIL COMPONENT WORKS</p>
+                <p>ACCUEIL COMPONENT WORKS TEST</p>
             </div>
         );
     }
