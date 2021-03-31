@@ -14,7 +14,7 @@ import MatxLayout from "./MatxLayout/MatxLayout";
 import AuthGuard from "./auth/AuthGuard";
 
 const App = () => {
-  fetch("http://api.brilliant-market.com/")
+  fetch("https://api.brilliant-market.com/")
       .then(
           (response) => {
             console.log("Appel / :", response);
@@ -27,7 +27,7 @@ const App = () => {
               console.log("Appel / resultat:", result);
           }
       );
-  fetch("http://api.brilliant-market.com/api/test")
+  fetch("https://api.brilliant-market.com/api/test")
       .then(
           (response) => {
             console.log("Appel /api/test :", response);
