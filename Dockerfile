@@ -16,13 +16,15 @@ COPY webapp/package.json ./
 
 COPY webapp/package-lock.json ./
 
+RUN npm ci
 RUN npm install -g react
-RUN npm install
-
-EXPOSE 3000
 
 # add app
 COPY webapp/. ./
 
-# start app
-CMD ["npm", "start"]
+# build app for production
+RUN npm run build
+
+# serve app
+RUN npm install -g serve
+CMD ["serve", "-s", "/build", "-l", "3000"]

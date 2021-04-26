@@ -70,7 +70,7 @@ class Layout1 extends Component {
                     !layout1Settings.topbar.fixed && <Layout1Topbar style={{height: '80px'}} />}
                   <div className="content">{renderRoutes(routes)}</div>
                   <div className="my-auto" />
-                  {settings.footer.show && !settings.footer.fixed && <Footer />}
+                  {/*{settings.footer.show && !settings.footer.fixed && <Footer />}*/}
                 </Scrollbar>
               )}
 
@@ -80,11 +80,11 @@ class Layout1 extends Component {
                     !layout1Settings.topbar.fixed && <Layout1Topbar />}
                   <div className="content">{renderRoutes(routes)}</div>
                   <div className="my-auto" />
-                  {settings.footer.show && !settings.footer.fixed && <Footer />}
+                  {/*{settings.footer.show && !settings.footer.fixed && <Footer />}*/}
                 </div>
               )}
 
-              {settings.footer.show && settings.footer.fixed && <Footer />}
+              {/*{settings.footer.show && settings.footer.fixed && <Footer />}*/}
             </div>
           </div>
         )}

@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { connect } from "react-redux";
+import UserService from "../../services/UserService";
 
 class SignUp extends Component {
   state = {
@@ -24,7 +25,9 @@ class SignUp extends Component {
     });
   };
 
-  handleFormSubmit = event => {};
+  handleFormSubmit = event => {
+    UserService.register(this.state.email, this.state.password);
+  };
   render() {
     let { username, email, password } = this.state;
     return (
