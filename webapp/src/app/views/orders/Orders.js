@@ -1,17 +1,49 @@
 import React, { Component } from "react";
 import {Breadcrumb, SimpleCard} from "../../../matx";
-import OrdersTable from "./OrdersTable"; 
+import OrdersSupermarket from "./OrdersSupermarket";
+import OrdersConsumer from "./OrdersConsumer";
+import OrdersProducer from "./OrdersProducer";
+import {apiLinkProd} from "../../constantes.jsx"
+import data from "../../database.json";
 
 class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            test: "test"
+            user: 'producer'
         }
     }
 
     componentDidMount() {
+        fetch(`${apiLinkProd}/test`)
+            .then(
+                (response) => {
+                    //console.log("AppelOrder / :", response);
+                },
+                (error) => {
+                    //console.log("AppelOrder / erreur :", error);
+                }
+            ).then(
+                (result) => {
+                    //console.log("AppelOrder / resultat:", result);
+                }
+            );
+    }
 
+    switchState = () => {
+        if(this.state.user === 'producer') {
+            this.setState({
+                user: 'consumer'
+            });
+        } else if(this.state.user === 'consumer') {
+            this.setState({
+                user: 'supermarket'
+            });
+        } else {
+            this.setState({
+                user: 'producer'
+            });
+        }
     }
 
     render() {
@@ -23,8 +55,17 @@ class Orders extends Component {
                     ]}
                 />
                 <div className="m-sm-30">
-                    <SimpleCard title="Simple Table" dataItem={this.state.test}>
-                        <OrdersTable />
+                    <button onClick={this.switchState}>switch state</button>
+                    <SimpleCard title={this.state.user}>
+                        {this.state.user === 'supermarket' && 
+                            <OrdersSupermarket dataItem={data}/>
+                        }
+                        {this.state.user === 'consumer' && 
+                            <OrdersConsumer dataItem={data}/>
+                        }
+                        {this.state.user === 'producer' && 
+                            <OrdersProducer dataItem={data}/>
+                        }
                     </SimpleCard>
                 </div>
             </div>

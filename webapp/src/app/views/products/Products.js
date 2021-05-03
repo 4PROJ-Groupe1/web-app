@@ -24,7 +24,7 @@ class Products extends Component {
                 />
                 <div className="m-sm-30">
                     <SimpleCard title="Simple Table">
-                        <ProductTable />
+                        <ProductTable dataItem="test dataItem"/>
                     </SimpleCard>
                 </div>
             </div>

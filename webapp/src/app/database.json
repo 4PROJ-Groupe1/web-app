@@ -1,0 +1,209 @@
+{
+    "entity": [
+        {
+            "id": 1,
+            "name": "Auchan",
+            "email": "Auchan@mail.com",
+            "address": [
+                {
+                    "street": "8 rue de la fontaine",
+                    "city": "Tours",
+                    "state": "Indre et Loire",
+                    "zip": "37000"
+                }
+            ],
+            "typeId": 2
+        },
+        {
+            "id": 2,
+            "name": "La ferme Jérome",
+            "email": "lfjerome@mail.com",
+            "address": [
+                {
+                    "street": "7 rue de la fontaine",
+                    "city": "Paris",
+                    "state": "Île-de-France",
+                    "zip": "75000"
+                }
+            ],
+            "typeId": 1
+        }
+    ],
+    "item": [
+        {
+            "id": 1,
+            "name": "Pantalon",
+            "categoryId": 1,
+            "sellerId": 2
+        },
+        {
+            "id": 2,
+            "name": "Chemise",
+            "categoryId": 1,
+            "sellerId": 2
+        },
+        {
+            "id": 3,
+            "name": "Concombre",
+            "categoryId": 2,
+            "sellerId": 2
+        }
+    ],
+    "itemCategory": [
+        {
+            "id": 1,
+            "name": "Vetement"
+        },
+        {
+            "id": 2,
+            "name": "Nourriture"
+        }
+    ],
+    "producerOrder": [
+        {
+            "id": 1,
+            "orderDate": "2012-04-23T18:25:43.511Z",
+            "deliveryDate": "2012-04-23T18:25:43.511Z",
+            "address": {
+                "street": "8 rue de la fontaine",
+                "city": "Tours",
+                "state": "Indre et Loire",
+                "zip": "37000"
+            },
+            "price": 18,
+            "items": [
+                {
+                    "id": 1,
+                    "name": "Pantalon",
+                    "categoryId": 1,
+                    "sellerId": 2,
+                    "quantity":4
+                },
+                {
+                    "id": 2,
+                    "name": "Chemise",
+                    "categoryId": 1,
+                    "sellerId": 2,
+                    "quantity":8
+                }
+            ],
+            "supermarketId": 1,
+            "producerId": 2
+        }
+    ],
+    "role": [
+        {
+            "id": 1,
+            "name": "supermarket"
+        },
+        {
+            "id": 2,
+            "name": "customer"
+        },
+        {
+            "id": 3,
+            "name": "producer"
+        }
+    ],
+    "shelf": [
+        {
+            "id": 1,
+            "name": "Vetements",
+            "supermarketId": 1
+        }
+    ],
+    "supermarketItem": [
+        {
+            "id": 1,
+            "itemId": 1,
+            "supermarketId": 1,
+            "shelfId": 1,
+            "quantity": 8,
+            "maxQuantity": 10
+        }
+    ],
+    "supermarketOrder": [
+        {
+            "id": 1,
+            "userId": 1,
+            "supermarketId": 1,
+            "date": "2012-04-23T18:25:43.511Z",
+            "items": [
+                {
+                    "id": 1,
+                    "name": "Pantalon",
+                    "categoryId": 1,
+                    "sellerId": 2,
+                    "quantity":4
+                },
+                {
+                    "id": 3,
+                    "name": "Concombre",
+                    "categoryId": 2,
+                    "sellerId": 2,
+                    "quantity":2
+                }
+            ]
+        }
+    ],
+    "type": [
+        {
+            "id": 1,
+            "name": "Producer"
+        },
+        {
+            "id": 2,
+            "name": "Supermarket"
+        }
+    ],
+    "user": [
+        {
+            "id": 1,
+            "name": "Krish",
+            "surname": "Lee",
+            "email": "krish.lee@mail.com",
+            "address": [
+                {
+                    "street": "2 rue de la fontaine",
+                    "city": "Tours",
+                    "state": "Indre et Loire",
+                    "zip": "37000"
+                }
+            ],
+            "roleId": 2,
+            "password": "12345"
+        },
+        {
+            "id": 2,
+            "name": "Racks",
+            "surname": "Jacson",
+            "email": "racks.jacson@mail.com",
+            "address": [
+                {
+                    "street": "1 rue de la fontaine",
+                    "city": "Tours",
+                    "state": "Indre et Loire",
+                    "zip": "37000"
+                }
+            ],
+            "roleId": 1,
+            "password": "12345"
+        },
+        {
+            "id": 3,
+            "name": "Denial",
+            "surname": "Roast",
+            "email": "denial.roast@mail.com",
+            "address": [
+                {
+                    "street": "9 rue de la fontaine",
+                    "city": "Tours",
+                    "state": "Indre et Loire",
+                    "zip": "37000"
+                }
+            ],
+            "roleId": 3,
+            "password": "12345"
+        }
+    ]
+}
