@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import {dimValueGetter} from "echarts/src/component/marker/markerHelper";
-import {AgGridReact, AgGridColumn} from "ag-grid-react";
+import {AgGridReact} from "ag-grid-react";
+import Card from '@material-ui/core/Card';
+import Grid from "@material-ui/core/Grid";
 
 class HomeDashboard extends Component {
     constructor(props) {
@@ -14,114 +15,146 @@ class HomeDashboard extends Component {
 
     }
 
-    onGridReady(params) {
-        console.log(params);
-        this.api = params.api;
-        this.columnApi = params.columnApi.columnController;
-    }
-
     render() {
-        console.log("render");
-        const rowData = [
-            {
-                'name': 'name1',
-                'price': '10',
-                'seller': 'seller1'
-            },
-            {
-                'name': 'name2',
-                'price': '10',
-                'seller': 'seller2'
-            },
-            {
-                'name': 'name3',
-                'price': '10',
-                'seller': 'seller3'
-            }
-        ];
-
-        const colDef = [
-            {
-                "headerName": "nameHeader",
-                "field": "name",
-                "flex": "1",
-                "minWidth": "100",
-                "resizable": true,
-                "suppressMovable": true,
-            },
-            {
-                "headerName": "priceHeader",
-                "field": "price",
-                "flex": "1",
-                "minWidth": "100",
-                "resizable": true,
-                "suppressMovable": true,
-            },
-            {
-                "headerName": "sellerHeader",
-                "field": "seller",
-                "flex": "1",
-                "minWidth": "100",
-                "resizable": true,
-                "suppressMovable": true,
-            },
-            {
-                "headerName": "nameHeader",
-                "field": "name",
-                "flex": "1",
-                "minWidth": "100",
-                "resizable": true,
-                "suppressMovable": true,
-            },
-            {
-                "headerName": "priceHeader",
-                "field": "price",
-                "flex": "1",
-                "minWidth": "100",
-                "resizable": true,
-                "suppressMovable": true,
-            },
-            {
-                "headerName": "sellerHeader",
-                "field": "seller",
-                "flex": "1",
-                "minWidth": "100",
-                "resizable": true,
-                "suppressMovable": true,
-                valueFormatter: (params) => {
-                    return params.value === 'seller1' ? params.value + "oui" : params.value;
-                }
-            }
-        ];
-
-        const gridOptions = {
-            pagination: true,
-            paginationPageSize: 50,
-            localeText: {
-                to: "à",
-                of: "sur",
-            }
-        }
-
         return (
             <div className="m-sm-30">
                 <p>ACCUEIL COMPONENT WORKS TEST</p>
                 <br/>
                 <br/>
-                <p>test ag-grid : </p>
+                <div>
+                    {/*PRODUCER*/}
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
+                                <div className="card-title">Produits</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">Vous proposez 50 produits différents à la vente</div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
+                                <div className="card-title">Livraisons</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">Vous avez 10 commandes à expédier, et 15 en cours d'acheminement. </div>
+                                <a href="">Voir le détail</a>
+                                <br/>
+                                <a href="">Voir l'historique</a>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                    <br/>
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100" style={{minWidth: 250}}>
+                                <div className="card-title">Stock</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">Vous possédez 800 produits en stock, ce qui représente 4000€</div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
+                                <div className="card-title">Péremption</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">ATTENTION : Vous avez 5 produits périmés non vendus.</div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                </div>
+
                 <br/>
                 <br/>
-                <div
-                    className="ag-theme-material"
-                    style={{ height: 300, width: '100%' }}
-                >
-                    <AgGridReact
-                        onGridReady={this.onGridReady}
-                        rowData={rowData}
-                        columnDefs={colDef}
-                        gridOptions={gridOptions}
-                    >
-                    </AgGridReact>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <div>
+                    {/*SUPERMARKET*/}
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
+                                <div className="card-title">Commandes</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">Vous avez 12 commandes en cours.</div>
+                                <a href="">Voir le détail</a>
+                                <br/>
+                                <a href="">Voir l'historique</a>
+                            </Card>
+                        </Grid>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
+                                <div className="card-title">Produits</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">Vous avez 5000 produits en rayon, sur 6000 maximum. </div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                    <br/>
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100" style={{minWidth: 250}}>
+                                <div className="card-title">Chiffre d'affaire</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">Aujourd'hui, vous avez pour le moment réalisé 6000€ de chiffre d'affaire, pour 600 clients.</div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100" style={{minWidth: 250}}>
+                                <div className="card-title">Stock</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">Vous possédez 800 produits en stock, ce qui représente 4000€</div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={3}>
+                        <Grid item xs={6}>
+                            <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
+                                <div className="card-title">Péremption</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">ATTENTION : Vous avez 5 produits périmés non vendus.</div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                </div>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <div>
+                    {/*CONSUMER*/}
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
+                                <div className="card-title">Recommendation</div>
+                                <br/>
+                                <div className="card-subtitle mb-24"> ? </div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                        <Grid item xs>
+                            <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
+                                <div className="card-title">Péremption</div>
+                                <br/>
+                                <div className="card-subtitle mb-24">ATTENTION : Vous avez 5 produits périmés dans votre frigo.</div>
+                                <a href="">Voir le détail</a>
+                            </Card>
+                        </Grid>
+                    </Grid>
                 </div>
             </div>
         );

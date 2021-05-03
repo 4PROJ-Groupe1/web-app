@@ -14,6 +14,9 @@ import MatxLayout from "./MatxLayout/MatxLayout";
 import AuthGuard from "./auth/AuthGuard";
 
 const App = () => {
+  console.log("environment : ", process.env.NODE_ENV);
+  window.API_URL = process.env.NODE_ENV === 'production' ? 'https://api.brilliant-market.com/api' : 'http://localhost:8082/api';
+  console.log("api url : ", window.API_URL);
   fetch("https://api.brilliant-market.com/")
       .then(
           (response) => {
