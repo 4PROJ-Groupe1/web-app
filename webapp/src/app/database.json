@@ -27,6 +27,20 @@
                 }
             ],
             "typeId": 1
+        },
+        {
+            "id": 3,
+            "name": "Super U",
+            "email": "SuperU@mail.com",
+            "address": [
+                {
+                    "street": "6 rue de la fontaine",
+                    "city": "Tours",
+                    "state": "Indre et Loire",
+                    "zip": "37000"
+                }
+            ],
+            "typeId": 2
         }
     ],
     "item": [
