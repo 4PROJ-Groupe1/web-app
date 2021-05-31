@@ -1,5 +1,10 @@
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 
 // TODO : Afficher commandes en fonction de l'user connecté
 
@@ -7,7 +12,9 @@ export default class OrdersConsumer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataItem: this.props.dataItem || []
+      dataItem: this.props.dataItem || [],
+      dialogOpen: false,
+      orderToDisplay: null
     }
   }
 
@@ -29,6 +36,15 @@ export default class OrdersConsumer extends React.Component {
     }
   }
 
+  getEntityFromIdInDialog = (id) => {
+    let dataTemp = this.state.dataItem;
+    for (const entity of dataTemp.entity) {
+      if (id == entity.id) {
+        return entity.name
+      }
+    }
+  }
+
   itemsFormatter = (items) => {
     let quantity = 0;
     for (const item of items.value) {
@@ -38,9 +54,22 @@ export default class OrdersConsumer extends React.Component {
     return quantity;
   }
 
-  render() {
-    console.log(this.props.dataItem);
+  handleCloseDialog = () => {
+    this.setState({
+      dialogOpen: false,
+      orderToDisplay: {}
+    })
+  }
 
+  onClicked = (params) => {
+    console.log(params.data)
+    this.setState({
+      orderToDisplay: params.data,
+      dialogOpen: true
+    })
+  }
+
+  render() {
     const colDef = [
         {
             "headerName": "supermarket",
@@ -98,12 +127,33 @@ export default class OrdersConsumer extends React.Component {
           <AgGridReact
               onGridReady={this.onGridReady}
               onColumnResized={onColumnResized}
+              onRowClicked={this.onClicked}
               rowData={this.state.dataItem.supermarketOrder}
               cellStyle={rowStyle}
               columnDefs={colDef}
               gridOptions={gridOptions}
           >
           </AgGridReact>
+          <Dialog open={this.state.dialogOpen} onClose={this.handleCloseDialog}>
+            <DialogTitle id="customized-dialog-title">
+              N° de commande : {this.state.orderToDisplay?.id}
+            </DialogTitle>
+            <DialogContent dividers>
+              <div style={{overflowY: "auto"}} >
+                <b>{this.getEntityFromIdInDialog(this.state.orderToDisplay?.supermarketId)} :</b>
+                {this.state.orderToDisplay?.items?.map((item, index) => 
+                  <div key={index}> 
+                    - {item.quantity} {item.name}
+                  </div>
+                )}
+              </div>
+            </DialogContent>
+            <DialogActions>
+              <Button autoFocus onClick={this.handleCloseDialog} color="primary">
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
       </div>
     );
   }

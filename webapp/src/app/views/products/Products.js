@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {Breadcrumb, SimpleCard} from "../../../matx";
-import ProductsSupermarket from "./ProductsSupermarket";
 import ProductsConsumer from "./ProductsConsumer";
 import ProductsProducer from "./ProductsProducer";
 import {apiLinkProd} from "../../constantes.jsx"
@@ -35,10 +34,6 @@ class Products extends Component {
             this.setState({
                 user: 'consumer'
             });
-        } else if(this.state.user === 'consumer') {
-            this.setState({
-                user: 'supermarket'
-            });
         } else {
             this.setState({
                 user: 'producer'
@@ -56,17 +51,14 @@ class Products extends Component {
                 />
                 <div className="m-sm-30">
                     <button onClick={this.switchState}>switch state</button>
-                    <div>
-                        {this.state.user === 'supermarket' && 
-                            <ProductsSupermarket dataItem={data}/>
-                        }
+                    <SimpleCard title={this.state.user} >
                         {this.state.user === 'consumer' && 
-                            <ProductsConsumer dataItem={data}/>
+                            <ProductsConsumer dataItem={data} style={{overflowY: "auto"}}/>
                         }
                         {this.state.user === 'producer' && 
                             <ProductsProducer dataItem={data}/>
                         }
-                    </div>
+                    </SimpleCard>
                 </div>
             </div>
         );

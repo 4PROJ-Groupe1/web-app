@@ -1,39 +1,47 @@
 import React from "react";
-import { AgGridReact } from "ag-grid-react";
 import Card from '@material-ui/core/Card';
 import Grid from "@material-ui/core/Grid";
-import ProductSheet from './ProductSheet.jsx';
-import { SimpleCard } from "../../../matx";
-
-// TODO : Afficher commandes en fonction de l'user connecté
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 
 export default class ProductsConsumer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dataItem: this.props.dataItem || [],
-      items: [],
-      allSupermarket: []
+      Items: [],
+      dialogOpen: false,
+      itemToDisplay: null
     }
   }
 
   componentDidMount() {
-    let allSupermarketTemp = [];
-    this.state.dataItem.entity.forEach(entity => {
-      if (entity.typeId === 2) {
-        allSupermarketTemp.push(entity)
-      }
+    let itemsTemp = [];
+    this.state.dataItem.item.forEach(item => {
+      itemsTemp.push(item)
     });
     this.setState({
-      allSupermarket: allSupermarketTemp
+      Items: itemsTemp
     });
   }
 
   getEntityFromId = (id) => {
+    let entityTemp = this.state.dataItem.entity;
+    for (const entity of entityTemp) {
+      if (id == entity.id) {
+        return entity.name;
+      }
+    }
+  }
+
+  getEntityFromIdInDialog = (id) => {
     let dataTemp = this.state.dataItem;
     for (const entity of dataTemp.entity) {
-      if (id.value == entity.id) {
-        return entity.name;
+      if (id == entity.id) {
+        return entity.name
       }
     }
   }
@@ -42,6 +50,15 @@ export default class ProductsConsumer extends React.Component {
     let dataTemp = this.state.dataItem;
     for (const category of dataTemp.itemCategory) {
       if (id.value == category.id) {
+        return category.name
+      }
+    }
+  }
+
+  getCategoryInDialogFromId = (id) => {
+    let dataTemp = this.state.dataItem;
+    for (const category of dataTemp.itemCategory) {
+      if (id == category.id) {
         return category.name
       }
     }
@@ -75,92 +92,61 @@ export default class ProductsConsumer extends React.Component {
     }
   }
 
-  render() {
-
-    const colDef = [
-        {
-            "headerName": "item",
-            "field": "itemId",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
-            valueFormatter: (params) => {
-                return this.getItemFromId(params);
-            }
-        },
-        {
-            "headerName": "supermarket",
-            "field": "supermarketId",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
-            valueFormatter: (params) => {
-                return this.getEntityFromId(params);
-            }
-        },
-        {
-            "headerName": "shelf",
-            "field": "shelfId",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
-            valueFormatter: (params) => {
-                return this.getShelfFromId(params);
-            }
-        },
-        {
-            "headerName": "quantity",
-            "field": "quantity",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true
-        },
-        {
-            "headerName": "max quantity",
-            "field": "maxQuantity",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true
-        }
-    ];
-
-    const gridOptions = {
-        pagination: true,
-        paginationPageSize: 50,
-        localeText: {
-            to: "à",
-            of: "sur",
-        }
+  getItemFromId = (id) => {
+    for (const item of this.state.items) {
+      if (id == item.id) {
+        return item.name
+      }
     }
-    
-    const onColumnResized = (params) => {
-      params.api.resetRowHeights();
-    };
+  }
 
-    const rowStyle = { whitespace: 'pre-line' };
-    
+  handleCloseDialog = () => {
+    this.setState({
+      dialogOpen: false,
+      itemToDisplay: {}
+    })
+  }
 
+  onClicked = (params) => {
+    this.setState({
+      itemToDisplay: params,
+      dialogOpen: true
+    })
+  }
+
+  render() {
     return (
       <div
           className="ag-theme-material"
-          style={{ height: 300, width: '100%' }}
+          style={{ width: '100%' }}
       >
-         {this.state.allSupermarket.map((supermarket, index) =>
-         <div key={index}>
-          <SimpleCard title={supermarket.name}>
-              <Grid container spacing={3}>
-                <ProductSheet supermarket={supermarket} supermarketItems={this.state.dataItem.supermarketItem} items={this.state.dataItem.item}/>
-              </Grid>
-            </SimpleCard>
-            <br/>
-          </div>
-
-         )}
+        <Grid container spacing={3}>
+          {this.state.Items.map((item, index) =>
+            <Grid item xs key={index}>
+              <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250, maxWidth: 250}}>
+                <div className="card-title">{item.name}</div>
+                <br/>
+                <div className="card-subtitle mb-24">{this.getEntityFromId(item.sellerId)}</div>
+                <Button onClick={this.onClicked.bind(this,item)}>Voir le détail</Button>
+              </Card>
+            </Grid>
+          )}
+        </Grid>
+        <Dialog open={this.state.dialogOpen} onClose={this.handleCloseDialog}>
+          <DialogTitle id="customized-dialog-title">
+            {this.state.itemToDisplay?.name}
+          </DialogTitle>
+          <DialogContent dividers>
+            <div style={{overflowY: "auto"}} >
+              <b>Category : </b>{this.getCategoryInDialogFromId(this.state.itemToDisplay?.categoryId)}
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={this.handleCloseDialog} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

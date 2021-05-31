@@ -10,22 +10,23 @@ class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: 'producer'
+            user: 'consumer',
+            userbis: JSON.parse(localStorage.getItem('auth_user'))
         }
     }
 
     componentDidMount() {
-        fetch(`${apiLinkProd}/test`)
+        fetch(`${apiLinkProd}`)
             .then(
                 (response) => {
-                    //console.log("AppelOrder / :", response);
+                    console.log("AppelOrder / :", response);
                 },
                 (error) => {
-                    //console.log("AppelOrder / erreur :", error);
+                    console.log("AppelOrder / erreur :", error);
                 }
             ).then(
                 (result) => {
-                    //console.log("AppelOrder / resultat:", result);
+                    console.log("AppelOrder / resultat:", result);
                 }
             );
     }

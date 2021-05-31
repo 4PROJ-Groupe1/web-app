@@ -1,15 +1,29 @@
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
 
-// TODO : Afficher commandes en fonction de l'user connecté
+// TODO : Attendre Pol qu'il fasse une méthode back
 
 export default class ProductsProducer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataItem: this.props.dataItem || []
+      dataItem: this.props.dataItem || [],
+      items: []
     }
   }
+
+  // changer quand le login sera fait
+  // componentDidMount() {
+  //   let itemsTemp = [];
+  //   for (const item of this.state.dataItem.item) {
+  //     if (item.sellerId === this.state.user.id) {
+  //       itemsTemp.push(item);
+  //     }
+  //   }
+  //   this.setState({
+  //     items : itemsTemp
+  //   })
+  // }
 
   getEntityFromId = (id) => {
     let dataTemp = this.state.dataItem;

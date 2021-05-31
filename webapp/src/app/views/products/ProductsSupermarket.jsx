@@ -1,14 +1,28 @@
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
 
-// TODO : Afficher commandes en fonction de l'user connecté
+// TODO : Attendre Pol qu'il fasse une méthode back
 
 export default class ProductsSupermarket extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataItem: this.props.dataItem || []
+      dataItem: this.props.dataItem || [],
+      supermarketItems: []
     }
+  }
+
+  componentDidMount() {
+    let dataTemp = this.state.dataItem;
+    let supermarketItemsTemp = this.state.supermarketItems
+    for (const supermarketItem of dataTemp.supermarketItem) {
+      if (this.state.dataItem.item.some(item => supermarketItem.itemId === item.id)    ) {
+        supermarketItemsTemp.push(supermarketItem);
+      }
+    }
+    this.setState({
+      supermarketItems: supermarketItemsTemp
+    })
   }
 
   getEntityFromId = (id) => {
@@ -29,6 +43,24 @@ export default class ProductsSupermarket extends React.Component {
     }
   }
 
+  getItemFromId = (id) => {
+    let dataTemp = this.state.dataItem;
+    for (const item of dataTemp.item) {
+      if (id.value == item.id) {
+        return item.name
+      }
+    }
+  }
+
+  getShelFromId = (id) => {
+    let dataTemp = this.state.dataItem;
+    for (const item of dataTemp.item) {
+      if (id.value == item.id) {
+        return item.name
+      }
+    }
+  }
+
   itemsFormatter = (items) => {
     let quantity = 0;
     for (const item of items.value) {
@@ -39,37 +71,28 @@ export default class ProductsSupermarket extends React.Component {
   }
 
   render() {
-    console.log(this.props.dataItem);
-
+    console.log(this.state.supermarketItems)
     const colDef = [
         {
-            "headerName": "name",
-            "field": "name",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true
-        },
-        {
-            "headerName": "category",
-            "field": "categoryId",
+            "headerName": "item",
+            "field": "itemId",
             "flex": "1",
             "minWidth": "100",
             "resizable": true,
             "suppressMovable": true,
             valueFormatter: (params) => {
-                return this.getCategoryFromId(params);
+                return this.getItemFromId(params);
             }
         },
         {
-            "headerName": "seller",
-            "field": "sellerId",
+            "headerName": "shelf",
+            "field": "shelfId",
             "flex": "1",
             "minWidth": "100",
             "resizable": true,
             "suppressMovable": true,
             valueFormatter: (params) => {
-                return this.getEntityFromId(params);
+                return this.getShelfFromId(params);
             }
         }
     ];
@@ -98,7 +121,7 @@ export default class ProductsSupermarket extends React.Component {
           <AgGridReact
               onGridReady={this.onGridReady}
               onColumnResized={onColumnResized}
-              rowData={this.state.dataItem.item}
+              rowData={this.state.supermarketItems}
               cellStyle={rowStyle}
               columnDefs={colDef}
               gridOptions={gridOptions}
