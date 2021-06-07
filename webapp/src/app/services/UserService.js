@@ -1,14 +1,15 @@
 class UserService {
-    apiPath = '/register';
+    registerApiPath = '/register';
+    userApiPath = '/user';
 
-    register(email, password) {
+    register(name, surname, email, password) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email, password: password })
+            body: JSON.stringify({ name: name, surname: surname, email: email, password: password })
         };
 
-        fetch(window.API_URL+this.apiPath, requestOptions)
+        fetch(window.API_URL+this.registerApiPath, requestOptions)
             .then(
                 res => {
                     console.log('register response : ', res);
@@ -17,6 +18,16 @@ class UserService {
                     console.log('Registor error : ', err);
                 }
             );
+    }
+
+    login(email, password) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, password: password })
+        };
+
+        return fetch(window.API_URL+this.userApiPath+"/login", requestOptions);
     }
 }
 

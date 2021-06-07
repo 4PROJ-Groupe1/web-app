@@ -7,12 +7,14 @@ import {
   Button
 } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { MenuItem } from "@material-ui/core";
 import { connect } from "react-redux";
 import UserService from "../../services/UserService";
 
 class SignUp extends Component {
   state = {
-    username: "",
+    name: "",
+    surname: "",
     email: "",
     password: "",
     agreement: ""
@@ -26,10 +28,10 @@ class SignUp extends Component {
   };
 
   handleFormSubmit = event => {
-    UserService.register(this.state.email, this.state.password);
+    UserService.register(this.state.name, this.state.surname, this.state.email,this.state.password);
   };
   render() {
-    let { username, email, password } = this.state;
+    let { name, surname, email, role, password } = this.state;
     return (
       <div className="signup flex flex-center w-100 h-100vh">
         <div className="p-8">
@@ -47,13 +49,24 @@ class SignUp extends Component {
                 <div className="p-36 h-100">
                   <ValidatorForm ref="form" onSubmit={this.handleFormSubmit}>
                     <TextValidator
+                        className="mb-24 w-100"
+                        variant="outlined"
+                        label="Name"
+                        onChange={this.handleChange}
+                        type="text"
+                        name="name"
+                        value={name}
+                        validators={["required"]}
+                        errorMessages={["this field is required"]}
+                    />
+                    <TextValidator
                       className="mb-24 w-100"
                       variant="outlined"
-                      label="Username"
+                      label="Surname"
                       onChange={this.handleChange}
                       type="text"
-                      name="username"
-                      value={username}
+                      name="surname"
+                      value={surname}
                       validators={["required"]}
                       errorMessages={["this field is required"]}
                     />

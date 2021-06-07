@@ -1,5 +1,6 @@
 import axios from "axios";
 import localStorageService from "./localStorageService";
+import userService from "./UserService";
 
 class JwtAuthService {
 
@@ -19,18 +20,64 @@ class JwtAuthService {
   // User should have role property
   // You can define roles in app/auth/authRoles.js
   loginWithEmailAndPassword = (email, password) => {
+
+
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.user);
-      }, 1000);
-    }).then(data => {
-      // Login successful
-      // Save token
-      this.setSession(data.token);
-      // Set user
-      this.setUser(data);
-      return data;
+      userService.login(email,password).then(
+        result => {
+          result.json().then(
+            data => {
+              if (result.ok) {
+                console.log("LOGIN SUCCESS : ", data);
+                // Login successful
+                // Save token
+                this.setSession(data.token);
+                // Set user
+                const userData = JSON.parse(atob(data.token.split(".")[1]))
+                this.setUser(userData);
+                resolve(userData);
+                //return data;
+              } else {
+                console.log("error thrown : ", data.error);
+                //return data;
+                //throw new Error(data.error)
+              }
+            }
+          )
+        },
+        err => {
+          console.log("LOGIN ERROR : ", err);
+          throw new Error(err);
+        }
+      ).catch(error => {console.log(error)})
     });
+
+
+    // return userService.login(email,password).then(
+    //   result => {
+    //     result.json().then(
+    //       data => {
+    //         if (result.ok) {
+    //           console.log("LOGIN SUCCESS : ", data);
+    //           // Login successful
+    //           // Save token
+    //           this.setSession(data.token);
+    //           // Set user
+    //           this.setUser(data);
+    //           //return data;
+    //         } else {
+    //           console.log("error thrown : ", data.error);
+    //           //return data;
+    //           //throw new Error(data.error)
+    //         }
+    //       }
+    //     )
+    //   },
+    //   err => {
+    //     console.log("LOGIN ERROR : ", err);
+    //     throw new Error(err);
+    //   }
+    // ).catch(error => {console.log(error)})
   };
 
   // You need to send http requst with existing token to your server to check token is valid

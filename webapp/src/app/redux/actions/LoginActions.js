@@ -8,7 +8,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_LOADING = "LOGIN_LOADING";
 export const RESET_PASSWORD = "RESET_PASSWORD";
 
-export function loginWithEmailAndPassword({ email, password }) {
+export function loginWithEmailAndPassword({ email, password }, errorCallback) {
   return dispatch => {
     dispatch({
       type: LOGIN_LOADING
@@ -17,6 +17,10 @@ export function loginWithEmailAndPassword({ email, password }) {
     jwtAuthService
       .loginWithEmailAndPassword(email, password)
       .then(user => {
+        console.log("LoginAction", user);
+        console.log("LoginAction params", email, password, errorCallback);
+        errorCallback();
+        //throw new Error("test");
         dispatch(setUserData(user));
 
         history.push({
@@ -28,6 +32,7 @@ export function loginWithEmailAndPassword({ email, password }) {
         });
       })
       .catch(error => {
+          console.log(error);
         return dispatch({
           type: LOGIN_ERROR,
           payload: error
