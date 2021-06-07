@@ -9,15 +9,7 @@ class UserService {
             body: JSON.stringify({ name: name, surname: surname, email: email, password: password })
         };
 
-        fetch(window.API_URL+this.registerApiPath, requestOptions)
-            .then(
-                res => {
-                    console.log('register response : ', res);
-                },
-                err => {
-                    console.log('Registor error : ', err);
-                }
-            );
+        return fetch(window.API_URL+this.registerApiPath, requestOptions);
     }
 
     login(email, password) {

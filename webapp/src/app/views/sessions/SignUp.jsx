@@ -7,7 +7,6 @@ import {
   Button
 } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { MenuItem } from "@material-ui/core";
 import { connect } from "react-redux";
 import UserService from "../../services/UserService";
 
@@ -28,7 +27,26 @@ class SignUp extends Component {
   };
 
   handleFormSubmit = event => {
-    UserService.register(this.state.name, this.state.surname, this.state.email,this.state.password);
+    UserService.register(this.state.name, this.state.surname, this.state.email,this.state.password).then(
+      res => {
+        res.json().then(
+          response => {
+            if (res.ok) {
+              console.log('register response : ', response);
+              this.props.history.push("/session/signin");
+            } else {
+              console.log("register failed : ", response);
+            }
+          },
+          error => {
+            console.log('register parse error : ', error);
+          }
+        );
+      },
+      err => {
+        console.log('Registor error : ', err);
+      }
+    );
   };
   render() {
     let { name, surname, email, role, password } = this.state;
