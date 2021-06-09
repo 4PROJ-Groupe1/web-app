@@ -19,8 +19,7 @@ export function loginWithEmailAndPassword({ email, password }, errorCallback) {
       .then(user => {
         console.log("LoginAction", user);
         console.log("LoginAction params", email, password, errorCallback);
-        errorCallback();
-        //throw new Error("test");
+
         dispatch(setUserData(user));
 
         history.push({
@@ -30,9 +29,17 @@ export function loginWithEmailAndPassword({ email, password }, errorCallback) {
         return dispatch({
           type: LOGIN_SUCCESS
         });
-      })
-      .catch(error => {
-          console.log(error);
+      },
+      err => {
+        console.log("error then", err);
+        errorCallback(err);
+        return dispatch({
+            type: LOGIN_ERROR,
+            payload: err
+        });
+      }
+      ).catch(error => {
+        console.log("error catch", error);
         return dispatch({
           type: LOGIN_ERROR,
           payload: error

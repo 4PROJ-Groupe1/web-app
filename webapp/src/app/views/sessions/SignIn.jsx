@@ -72,7 +72,7 @@ function MySnackbarContentWrapper(props) {
           className={clsx(classes[variant], className)}
           aria-describedby="client-snackbar"
           message={
-            <span id="client-snackbar" className={classes.message}>
+            <span style={{color: "white"}} id="client-snackbar" className={classes.message}>
           <Icon className={clsx(classes.icon, classes.iconVariant)} />
               {message}
         </span>
@@ -90,7 +90,7 @@ function MySnackbarContentWrapper(props) {
           {...other}
       />
   );
-}
+};
 
 MySnackbarContentWrapper.propTypes = {
   className: PropTypes.string,
@@ -127,7 +127,8 @@ class SignIn extends Component {
     email: "watson@example.com",
     password: "testpass",
     agreement: "",
-    loginError: false
+    loginError: false,
+    errorMessage: ""
   };
   handleChange = event => {
     event.persist();
@@ -139,8 +140,8 @@ class SignIn extends Component {
     this.props.loginWithEmailAndPassword({ ...this.state }, this.switchStateLoginError);
   };
 
-  switchStateLoginError = () => {
-    this.setState({loginError: !this.state.loginError})
+  switchStateLoginError = (errorMessage) => {
+    this.setState({loginError: !this.state.loginError, errorMessage: errorMessage})
   }
 
   handleClose = (event, reason) => {
@@ -168,7 +169,7 @@ class SignIn extends Component {
           <MySnackbarContentWrapper
               variant="error"
               className={classes.margin}
-              message="This is an error message!"
+              message={this.state.errorMessage}
           />
         </Snackbar>
         <div className="p-8">

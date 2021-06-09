@@ -36,11 +36,9 @@ class JwtAuthService {
                 const userData = JSON.parse(atob(data.token.split(".")[1]))
                 this.setUser(userData);
                 resolve(userData);
-                //return data;
               } else {
                 console.log("error thrown : ", data.error);
-                //return data;
-                //throw new Error(data.error)
+                reject(data.error);
               }
             }
           )
