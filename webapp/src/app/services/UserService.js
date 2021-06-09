@@ -21,6 +21,15 @@ class UserService {
 
         return fetch(window.API_URL+this.userApiPath+"/login", requestOptions);
     }
+
+    verifyToken(token) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
+        };
+
+        return fetch(window.API_URL+this.userApiPath+"/verifyToken", requestOptions);
+    }
 }
 
 export default new UserService();

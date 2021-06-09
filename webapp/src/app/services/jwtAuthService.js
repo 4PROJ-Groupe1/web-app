@@ -49,49 +49,48 @@ class JwtAuthService {
         }
       ).catch(error => {console.log(error)})
     });
-
-
-    // return userService.login(email,password).then(
-    //   result => {
-    //     result.json().then(
-    //       data => {
-    //         if (result.ok) {
-    //           console.log("LOGIN SUCCESS : ", data);
-    //           // Login successful
-    //           // Save token
-    //           this.setSession(data.token);
-    //           // Set user
-    //           this.setUser(data);
-    //           //return data;
-    //         } else {
-    //           console.log("error thrown : ", data.error);
-    //           //return data;
-    //           //throw new Error(data.error)
-    //         }
-    //       }
-    //     )
-    //   },
-    //   err => {
-    //     console.log("LOGIN ERROR : ", err);
-    //     throw new Error(err);
-    //   }
-    // ).catch(error => {console.log(error)})
   };
 
   // You need to send http requst with existing token to your server to check token is valid
   // This method is being used when user logged in & app is reloaded
   loginWithToken = () => {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.user);
-      }, 100);
-    }).then(data => {
-      // Token is valid
-      this.setSession(data.token);
-      this.setUser(data);
-      return data;
+      userService.verifyToken(window.localStorage.getItem("jwt_token")).then(
+          result => {
+            result.json().then(
+                res => {
+                  console.log("result verifytoken: ", result);
+                  if (result.ok) {
+                    console.log("token verified : ", res);
+                    this.setSession(res.token);
+                    this.setUser(res.user);
+                    resolve(res.user);
+                  } else {
+                    console.log("bad / no token");
+                    reject(res.error);
+                  }
+                }
+            )
+          },
+          error => {
+            reject(error);
+          }
+      )
     });
   };
+
+  // loginWithToken = () => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve(this.user);
+  //     }, 100);
+  //   }).then(data => {
+  //     // Token is valid
+  //     this.setSession(data.token);
+  //     this.setUser(data);
+  //     return data;
+  //   });
+  // };
 
   logout = () => {
     this.setSession(null);
