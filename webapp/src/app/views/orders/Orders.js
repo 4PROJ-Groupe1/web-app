@@ -10,8 +10,7 @@ class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: 'consumer',
-            userbis: JSON.parse(localStorage.getItem('auth_user'))
+            user: JSON.parse(localStorage.getItem('auth_user'))
         }
     }
 
@@ -31,22 +30,6 @@ class Orders extends Component {
             );
     }
 
-    switchState = () => {
-        if(this.state.user === 'producer') {
-            this.setState({
-                user: 'consumer'
-            });
-        } else if(this.state.user === 'consumer') {
-            this.setState({
-                user: 'supermarket'
-            });
-        } else {
-            this.setState({
-                user: 'producer'
-            });
-        }
-    }
-
     render() {
         return (
             <div className="m-sm-30">
@@ -56,16 +39,15 @@ class Orders extends Component {
                     ]}
                 />
                 <div className="m-sm-30">
-                    <button onClick={this.switchState}>switch state</button>
-                    <SimpleCard title={this.state.user}>
-                        {this.state.user === 'supermarket' && 
-                            <OrdersSupermarket dataItem={data}/>
+                    <SimpleCard title="Vos commandes">
+                        {this.state.user.role === 'supermarket' && 
+                            <OrdersSupermarket dataItem={data} user={this.state.user}/>
                         }
-                        {this.state.user === 'consumer' && 
-                            <OrdersConsumer dataItem={data}/>
+                        {this.state.user.role === 'consumer' && 
+                            <OrdersConsumer dataItem={data} user={this.state.user}/>
                         }
-                        {this.state.user === 'producer' && 
-                            <OrdersProducer dataItem={data}/>
+                        {this.state.user.role === 'producer' && 
+                            <OrdersProducer dataItem={data} user={this.state.user}/>
                         }
                     </SimpleCard>
                 </div>

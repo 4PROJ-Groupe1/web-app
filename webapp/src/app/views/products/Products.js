@@ -9,7 +9,7 @@ class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: 'consumer'
+            user: JSON.parse(localStorage.getItem('auth_user'))
         }
     }
 
@@ -50,13 +50,12 @@ class Products extends Component {
                     ]}
                 />
                 <div className="m-sm-30">
-                    <button onClick={this.switchState}>switch state</button>
-                    <SimpleCard title={this.state.user} >
-                        {this.state.user === 'consumer' && 
-                            <ProductsConsumer dataItem={data} style={{overflowY: "auto"}}/>
+                    <SimpleCard title={this.state.user.role} >
+                        {this.state.user.role === 'consumer' && 
+                            <ProductsConsumer dataItem={data} style={{overflowY: "auto"}} user={this.state.user}/>
                         }
-                        {this.state.user === 'producer' && 
-                            <ProductsProducer dataItem={data}/>
+                        {this.state.user.role === 'producer' && 
+                            <ProductsProducer dataItem={data} user={this.state.user}/>
                         }
                     </SimpleCard>
                 </div>

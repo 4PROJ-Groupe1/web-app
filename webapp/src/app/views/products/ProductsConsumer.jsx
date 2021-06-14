@@ -12,6 +12,7 @@ export default class ProductsConsumer extends React.Component {
     super(props);
     this.state = {
       dataItem: this.props.dataItem || [],
+      user: this.props.user || null,
       Items: [],
       dialogOpen: false,
       itemToDisplay: null

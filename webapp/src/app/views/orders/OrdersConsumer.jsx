@@ -13,18 +13,27 @@ export default class OrdersConsumer extends React.Component {
     super(props);
     this.state = {
       dataItem: this.props.dataItem || [],
+      user: this.props.user || null,
       dialogOpen: false,
-      orderToDisplay: null
+      orderToDisplay: null,
+      orders: []
     }
   }
 
-  getUserFromId = (id) => {
+  componentDidMount() {
+    console.log("userid : ",this.state.user);
     let dataTemp = this.state.dataItem;
-    for (const user of dataTemp.user) {
-      if (id.value == user.id) {
-        return user.name + " " + user.surname;
+    let ordersTemp = this.state.orders;
+    for (const order of dataTemp.supermarketOrder) {
+      if (order.userId == this.state.user?.id) {
+        ordersTemp.push(order);
       }
     }
+
+    console.log("ordersTemp : ",ordersTemp);
+    this.setState({
+      orders: ordersTemp
+    });
   }
 
   getEntityFromId = (id) => {
@@ -128,7 +137,7 @@ export default class OrdersConsumer extends React.Component {
               onGridReady={this.onGridReady}
               onColumnResized={onColumnResized}
               onRowClicked={this.onClicked}
-              rowData={this.state.dataItem.supermarketOrder}
+              rowData={this.state.orders}
               cellStyle={rowStyle}
               columnDefs={colDef}
               gridOptions={gridOptions}
