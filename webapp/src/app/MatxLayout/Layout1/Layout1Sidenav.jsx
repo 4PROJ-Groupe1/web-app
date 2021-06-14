@@ -87,6 +87,15 @@ class Layout1Sidenav extends Component {
     this.props.logoutUser();
   };
 
+  displayUserPhoto = () => {
+    const url = this.props.user?.photoURL;
+    if (url && url.toString().trim() !== "") {
+      return <img src={url} alt="user" />;
+    } else {
+      return <img src={"/assets/images/faces/default.jpg"} alt="user" />
+    }
+  };
+
   renderLogoSwitch = () => (
     // Open Brand component file to replace logo and text
     <Brand>
@@ -104,12 +113,14 @@ class Layout1Sidenav extends Component {
     return (
       <div className="sidenav__user">
         <div className="username-photo">
-          <img src={user.photoURL} alt="user" />
+          {/*<img src={user.photoURL} alt="user" />*/}
+          {this.displayUserPhoto()}
+          {/*<displayUserPhoto/>*/}
         </div>
         <div className="ml-8">
           <span className="username">
             {/* <Icon>lock</Icon> */}
-            {user.displayName}
+            {user.name + " " + user.surname}
           </span>
           <div className="user__menu">
             <MatxMenu

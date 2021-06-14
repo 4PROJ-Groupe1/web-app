@@ -59,6 +59,23 @@ class Layout1Topbar extends Component {
     this.props.logoutUser();
   };
 
+  displayUserPhoto = () => {
+    const url = this.props.user?.photoURL;
+    if (url && url.toString().trim() !== "") {
+      return <img
+          className="mx-8 text-middle circular-image-small cursor-pointer"
+          src={url}
+          alt="user"
+      />
+    } else {
+      return <img
+          className="mx-8 text-middle circular-image-small cursor-pointer"
+          src={"/assets/images/faces/default.jpg"}
+          alt="user"
+      />
+    }
+  };
+
   render() {
     let { theme, settings, className, style } = this.props;
     const topbarTheme =
@@ -98,13 +115,7 @@ class Layout1Topbar extends Component {
                 <ShoppingCart></ShoppingCart>
 
                 <MatxMenu
-                  menuButton={
-                    <img
-                      className="mx-8 text-middle circular-image-small cursor-pointer"
-                      src="/assets/images/face-6.jpg"
-                      alt="user"
-                    />
-                  }
+                  menuButton={this.displayUserPhoto()}
                 >
                   <MenuItem style={{ minWidth: 185 }}>
                     <Link className="flex flex-middle" to="/">
