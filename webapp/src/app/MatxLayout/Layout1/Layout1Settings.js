@@ -4,7 +4,7 @@ const Layout1Settings = {
     mode: 'full', // full, close, compact, mobile,
     theme: 'white', // View all valid theme colors inside MatxTheme/themeColors.js
     bgOpacity: .96, // 0 ~ 1
-    bgImgURL: '/assets/images/sidebar/sidebar-bg-dark.jpg'
+    // bgImgURL: '/assets/images/sidebar/sidebar-bg-dark.jpg'
   },
   topbar: {
     show: true,
