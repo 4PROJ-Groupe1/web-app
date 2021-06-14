@@ -92,23 +92,8 @@ class Layout1Topbar extends Component {
                 <IconButton onClick={this.handleSidebarToggle} className="hide-on-lg">
                   <Icon>menu</Icon>
                 </IconButton>
-
-                <div className="hide-on-mobile">
-                  <IconButton>
-                    <Icon>mail_outline</Icon>
-                  </IconButton>
-
-                  <IconButton>
-                    <Icon>web_asset</Icon>
-                  </IconButton>
-
-                  <IconButton>
-                    <Icon>star_outline</Icon>
-                  </IconButton>
-                </div>
               </div>
               <div className="flex flex-middle">
-                <MatxSearchBox />
 
                 <NotificationBar />
 
