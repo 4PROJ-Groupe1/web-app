@@ -126,7 +126,6 @@ class SignUp extends Component {
               this.props.history.push("/session/signin");
             } else {
               console.log("register failed : ", response.error);
-              //TODO: snackbar avec message
               this.setState({displayError: true});
               this.setState({errorMessage: response.error});
             }
