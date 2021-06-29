@@ -1,85 +1,87 @@
 let user = JSON.parse(localStorage.getItem('auth_user'));
 let navigations = [];
 
-if (user.role === "supermarket") {
-  navigations = [
-    {
-      name: "Home",
-      path: "/home",
-      icon: "home"
-    },
-    {
-      name: "Products",
-      path: "/products",
-      icon: "shopping_cart"
-    },
-    {
-      name: "Orders",
-      path: "/orders",
-      icon: "local_shipping"
-    },
-    {
-      name: "Supply",
-      path: "/supply",
-      icon: "inventory"
-    },
-    {
-      name: "Monitoring",
-      path: "/monitoring",
-      icon: "visibility"
-    },
-    {
-      name: "Stats",
-      path: "/stats",
-      icon: "insert_chart_outlined"
-    },
-    {
-      name: "Add producer",
-      path: "/addProducer",
-      icon: "insert_chart_outlined"
-    }
-  ]
-} else if (user.role === "producer") {
-  navigations = [
-    {
-      name: "Home",
-      path: "/home",
-      icon: "home"
-    },
-    {
-      name: "Products",
-      path: "/products",
-      icon: "shopping_cart"
-    },
-    {
-      name: "Orders",
-      path: "/orders",
-      icon: "local_shipping"
-    },
-    {
-      name: "Supply",
-      path: "/supply",
-      icon: "inventory"
-    }
-  ]
-} else if (user.role === "consumer") {
-  navigations = [
-    {
-      name: "Home",
-      path: "/home",
-      icon: "home"
-    },
-    {
-      name: "Products",
-      path: "/products",
-      icon: "shopping_cart"
-    },
-    {
-      name: "Orders",
-      path: "/orders",
-      icon: "local_shipping"
-    }
-  ]
+if (user.role) {
+  if (user.role === "supermarket") {
+    navigations = [
+      {
+        name: "Home",
+        path: "/home",
+        icon: "home"
+      },
+      {
+        name: "Products",
+        path: "/products",
+        icon: "shopping_cart"
+      },
+      {
+        name: "Orders",
+        path: "/orders",
+        icon: "local_shipping"
+      },
+      {
+        name: "Supply",
+        path: "/supply",
+        icon: "inventory"
+      },
+      {
+        name: "Monitoring",
+        path: "/monitoring",
+        icon: "visibility"
+      },
+      {
+        name: "Stats",
+        path: "/stats",
+        icon: "insert_chart_outlined"
+      },
+      {
+        name: "Add producer",
+        path: "/addProducer",
+        icon: "insert_chart_outlined"
+      }
+    ]
+  } else if (user.role === "producer") {
+    navigations = [
+      {
+        name: "Home",
+        path: "/home",
+        icon: "home"
+      },
+      {
+        name: "Products",
+        path: "/products",
+        icon: "shopping_cart"
+      },
+      {
+        name: "Orders",
+        path: "/orders",
+        icon: "local_shipping"
+      },
+      {
+        name: "Supply",
+        path: "/supply",
+        icon: "inventory"
+      }
+    ]
+  } else if (user.role === "consumer") {
+    navigations = [
+      {
+        name: "Home",
+        path: "/home",
+        icon: "home"
+      },
+      {
+        name: "Products",
+        path: "/products",
+        icon: "shopping_cart"
+      },
+      {
+        name: "Orders",
+        path: "/orders",
+        icon: "local_shipping"
+      }
+    ]
+  }
 }
 
 export {navigations};

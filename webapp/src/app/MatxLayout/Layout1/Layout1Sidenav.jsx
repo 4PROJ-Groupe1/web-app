@@ -99,12 +99,12 @@ class Layout1Sidenav extends Component {
   renderLogoSwitch = () => (
     // Open Brand component file to replace logo and text
     <Brand>
-      <Switch
-        className="sidenav__toggle show-on-lg"
-        onChange={this.handleSidenavToggle}
-        checked={!this.state.sidenavToggleChecked}
-        color="secondary"
-      />
+      {/*<Switch*/}
+      {/*  className="sidenav__toggle show-on-lg"*/}
+      {/*  onChange={this.handleSidenavToggle}*/}
+      {/*  checked={!this.state.sidenavToggleChecked}*/}
+      {/*  color="secondary"*/}
+      {/*/>*/}
     </Brand>
   );
 
@@ -124,17 +124,7 @@ class Layout1Sidenav extends Component {
           </span>
           <div className="user__menu">
             <MatxMenu
-              menuButton={
-                <Tooltip title="Settings">
-                  <IconButtonWhite
-                    aria-label="Delete"
-                    className=""
-                    size="small"
-                  >
-                    <IconSmall> settings </IconSmall>
-                  </IconButtonWhite>
-                </Tooltip>
-              }
+
             >
               <MenuItem className="flex flex-middle" style={{ minWidth: 185 }}>
                 <Icon> home </Icon>

@@ -103,7 +103,7 @@ class Layout1Topbar extends Component {
                   menuButton={this.displayUserPhoto()}
                 >
                   <MenuItem style={{ minWidth: 185 }}>
-                    <Link className="flex flex-middle" to="/">
+                    <Link className="flex flex-middle" to="/home">
                       <Icon> home </Icon>
                       <span className="pl-16"> Home </span>
                     </Link>
@@ -116,13 +116,6 @@ class Layout1Topbar extends Component {
                       <Icon> person </Icon>
                       <span className="pl-16"> Profile </span>
                     </Link>
-                  </MenuItem>
-                  <MenuItem
-                    className="flex flex-middle"
-                    style={{ minWidth: 185 }}
-                  >
-                    <Icon> settings </Icon>
-                    <span className="pl-16"> Settings </span>
                   </MenuItem>
                   <MenuItem
                     onClick={this.handleSignOut}
