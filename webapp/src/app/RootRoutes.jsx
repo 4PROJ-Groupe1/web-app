@@ -16,6 +16,7 @@ import ordersRoutes from "./views/orders/OrdersRoutes";
 import supplyRoutes from "./views/supply/SupplyRoutes";
 import monitoringRoutes from "./views/monitoring/MonitoringRoutes";
 import statsRoutes from "./views/stats/StatsRoutes";
+import userRoutes from "./views/user/UserRoutes";
 
 const redirectRoute = [
   {
@@ -45,8 +46,9 @@ const routes = [
     ...dragAndDropRoute,
     ...formsRoutes,
     ...mapRoutes,
+    ...userRoutes,
     ...redirectRoute,
-    ...errorRoute
+    ...errorRoute,
 ];
 
 export default routes;

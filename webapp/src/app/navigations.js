@@ -28,8 +28,12 @@ export const navigations = [
     name: "Stats",
     path: "/stats",
     icon: "insert_chart_outlined"
-  },
-  /*{
+  },{
+    name: "Add producer",
+    path: "/addProducer",
+    icon: "insert_chart_outlined"
+  },/*
+  {
     name: "Dashboard",
     path: "/dashboard/analytics",
     icon: "dashboard"
