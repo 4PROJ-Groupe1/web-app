@@ -147,7 +147,9 @@ class Layout1Sidenav extends Component {
             </MatxMenu>
 
             <Tooltip title="Profile">
-              <IconButtonWhite aria-label="Delete" className="" size="small">
+              <IconButtonWhite aria-label="Delete" className="" size="small" onClick={() =>
+                  this.props.history.push("/profile")
+              }>
                 <IconSmall>person</IconSmall>
               </IconButtonWhite>
             </Tooltip>
