@@ -60,16 +60,6 @@ if (user.role === "supermarket") {
       name: "Supply",
       path: "/supply",
       icon: "inventory"
-    },
-    {
-      name: "Monitoring",
-      path: "/monitoring",
-      icon: "visibility"
-    },
-    {
-      name: "Stats",
-      path: "/stats",
-      icon: "insert_chart_outlined"
     }
   ]
 } else if (user.role === "consumer") {
@@ -88,21 +78,6 @@ if (user.role === "supermarket") {
       name: "Orders",
       path: "/orders",
       icon: "local_shipping"
-    },
-    {
-      name: "Supply",
-      path: "/supply",
-      icon: "inventory"
-    },
-    {
-      name: "Monitoring",
-      path: "/monitoring",
-      icon: "visibility"
-    },
-    {
-      name: "Stats",
-      path: "/stats",
-      icon: "insert_chart_outlined"
     }
   ]
 }

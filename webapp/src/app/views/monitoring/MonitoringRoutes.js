@@ -8,8 +8,8 @@ const Monitoring = MatxLoadable({
 const monitoringRoutes = [
     {
         path: "/monitoring",
-        component: Monitoring
-        // auth: authRoles.admin
+        component: Monitoring,
+        auth: authRoles.supermarket
     }
 ];
 

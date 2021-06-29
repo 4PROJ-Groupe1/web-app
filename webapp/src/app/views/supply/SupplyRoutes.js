@@ -8,8 +8,8 @@ const Supply = MatxLoadable({
 const supplyRoutes = [
     {
         path: "/supply",
-        component: Supply
-        // auth: authRoles.admin
+        component: Supply,
+        auth: authRoles.producer
     }
 ];
 

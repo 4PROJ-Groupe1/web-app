@@ -8,8 +8,8 @@ const Stats = MatxLoadable({
 const statsRoutes = [
     {
         path: "/stats",
-        component: Stats
-        // auth: authRoles.admin
+        component: Stats,
+        auth: authRoles.supermarket
     }
 ];
 
