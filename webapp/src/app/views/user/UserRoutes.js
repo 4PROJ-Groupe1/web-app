@@ -12,8 +12,8 @@ const Profile = MatxLoadable({
 const userRoutes = [
     {
         path: "/addProducer",
-        component: AddProducer
-        // auth: authRoles.admin
+        component: AddProducer,
+        auth: authRoles.supermarket
     },
     {
         path: "/profile",
