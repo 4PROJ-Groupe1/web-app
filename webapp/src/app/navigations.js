@@ -25,6 +25,11 @@ if (user.role) {
         icon: "inventory"
       },
       {
+        name: "Product categories",
+        path: "/productCategory",
+        icon: "local_shipping"
+      },
+      {
         name: "Monitoring",
         path: "/monitoring",
         icon: "visibility"
@@ -83,6 +88,9 @@ if (user.role) {
     ]
   }
 }
+
+console.log(user.role);
+console.log(navigations);
 
 export {navigations};
 

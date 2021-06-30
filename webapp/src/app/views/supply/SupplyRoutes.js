@@ -5,11 +5,20 @@ const Supply = MatxLoadable({
     loader: () => import("./Supply.js")
 })
 
+const ProductCategory = MatxLoadable({
+    loader: () => import("./ProductCategory.js")
+})
+
 const supplyRoutes = [
     {
         path: "/supply",
         component: Supply,
         auth: authRoles.producer
+    },
+    {
+        path: "/productCategory",
+        component: ProductCategory,
+        auth: authRoles.supermarket
     }
 ];
 
