@@ -5,7 +5,6 @@ import ProductsProducer from "./ProductsProducer";
 import ProductsSupermarket from "./ProductsSupermarket";
 import {apiLinkProd, apiLinkDev} from "../../constantes.jsx"
 import data from "../../database.json";
-import SnackbarCustom from "../components/SnackbarCustom";
 import StockService from "../../services/StockService";
 
 class Products extends Component {
