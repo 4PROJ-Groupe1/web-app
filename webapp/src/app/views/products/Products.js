@@ -2,44 +2,52 @@ import React, { Component } from "react";
 import {Breadcrumb, SimpleCard} from "../../../matx";
 import ProductsConsumer from "./ProductsConsumer";
 import ProductsProducer from "./ProductsProducer";
-import {apiLinkProd} from "../../constantes.jsx"
+import ProductsSupermarket from "./ProductsSupermarket";
+import {apiLinkProd, apiLinkDev} from "../../constantes.jsx"
 import data from "../../database.json";
+import SnackbarCustom from "../components/SnackbarCustom";
+import StockService from "../../services/StockService";
 
 class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: JSON.parse(localStorage.getItem('auth_user'))
+            user: JSON.parse(localStorage.getItem('auth_user')),
+            displayError: false,
+            products: []
         }
     }
 
     componentDidMount() {
-        fetch(`${apiLinkProd}/test`)
-            .then(
-                (response) => {
-                    //console.log("AppelOrder / :", response);
-                },
-                (error) => {
-                    //console.log("AppelOrder / erreur :", error);
-                }
-            ).then(
-                (result) => {
-                    //console.log("AppelOrder / resultat:", result);
-                }
-            );
+        StockService.getProducts().then(
+            res => {
+                res.json().then(
+                    response => {
+                        if (res.ok) {
+                            console.log('getProducts response : ', response);
+                            this.setState({products: response.products})
+                        } else {
+                            console.log("getProducts failed : ", response.error);
+                            // this.setState({displayError: true});
+                            // this.setState({errorMessage: response.error});
+                        }
+                    },
+                    error => {
+                        console.log('getProducts parse error : ', error);
+                    }
+                );
+            },
+            err => {
+                console.log('getProducts error : ', err);
+            }
+        )
     }
 
-    switchState = () => {
-        if(this.state.user === 'producer') {
-            this.setState({
-                user: 'consumer'
-            });
-        } else {
-            this.setState({
-                user: 'producer'
-            });
-        }
-    }
+    switchdisplayError = () => { 
+        this.setState({
+            displayError: this.state.displayError === true ? false : true
+        });
+    } 
 
     render() {
         return (
@@ -50,14 +58,18 @@ class Products extends Component {
                     ]}
                 />
                 <div className="m-sm-30">
-                    <SimpleCard title={this.state.user.role} >
-                        {this.state.user.role === 'consumer' && 
-                            <ProductsConsumer dataItem={data} style={{overflowY: "auto"}} user={this.state.user}/>
+                    {/* <button onClick={this.switchdisplayError}>snackbar</button>
+                    <SnackbarCustom variant="error" message="test" displayError={this.state.displayError}/> */}
+
+                        {this.state.user.role === 'consumer' && this.state.products.length !== 0 && 
+                            <ProductsConsumer dataItem={data} products={this.state.products} style={{overflowY: "auto"}} user={this.state.user}/>
                         }
-                        {this.state.user.role === 'producer' && 
-                            <ProductsProducer dataItem={data} user={this.state.user}/>
+                        {this.state.user.role === 'producer' && this.state.products.length !== 0 && 
+                            <ProductsProducer dataItem={data} products={this.state.products} user={this.state.user}/>
                         }
-                    </SimpleCard>
+                        {this.state.user.role === 'supermarket' && this.state.products.length !== 0 &&
+                            <ProductsSupermarket dataItem={data} products={this.state.products} style={{overflowY: "auto"}} user={this.state.user}/>
+                        }
                 </div>
             </div>
         );

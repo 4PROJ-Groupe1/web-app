@@ -13,6 +13,7 @@ export default class ProductsConsumer extends React.Component {
     this.state = {
       dataItem: this.props.dataItem || [],
       user: this.props.user || null,
+      products: this.props.products,
       Items: [],
       dialogOpen: false,
       itemToDisplay: null
@@ -27,78 +28,6 @@ export default class ProductsConsumer extends React.Component {
     this.setState({
       Items: itemsTemp
     });
-  }
-
-  getEntityFromId = (id) => {
-    let entityTemp = this.state.dataItem.entity;
-    for (const entity of entityTemp) {
-      if (id == entity.id) {
-        return entity.name;
-      }
-    }
-  }
-
-  getEntityFromIdInDialog = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const entity of dataTemp.entity) {
-      if (id == entity.id) {
-        return entity.name
-      }
-    }
-  }
-
-  getCategoryFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const category of dataTemp.itemCategory) {
-      if (id.value == category.id) {
-        return category.name
-      }
-    }
-  }
-
-  getCategoryInDialogFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const category of dataTemp.itemCategory) {
-      if (id == category.id) {
-        return category.name
-      }
-    }
-  }
-
-  getItemFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const item of dataTemp.item) {
-      if (id.value == item.id) {
-        return item.name
-      }
-    }
-  }
-
-  getShelfFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const shelf of dataTemp.shelf) {
-      if (id.value == shelf.id) {
-        return shelf.name
-      }
-    }
-  }
-
-  getAllItemsFromSupermarket = (id) => {
-    let dataTemp = this.state.dataItem;
-    let itemsTemp = this.state.items;
-    for (const items of dataTemp.supermarketItem) {
-      if (id.value == items.id) {
-        itemsTemp.push(items)
-      }
-    }
-  }
-
-  getItemFromId = (id) => {
-    for (const item of this.state.items) {
-      if (id == item.id) {
-        return item.name
-      }
-    }
   }
 
   handleCloseDialog = () => {
@@ -122,12 +51,13 @@ export default class ProductsConsumer extends React.Component {
           style={{ width: '100%' }}
       >
         <Grid container spacing={3}>
-          {this.state.Items.map((item, index) =>
+          {this.state.products.map((item, index) =>
             <Grid item xs key={index}>
-              <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250, maxWidth: 250}}>
+              <Card elevation={6} className="px-24 py-20 h-100"  style={{minWidth: 250}}>
                 <div className="card-title">{item.name}</div>
                 <br/>
-                <div className="card-subtitle mb-24">{this.getEntityFromId(item.sellerId)}</div>
+                <div className="card-subtitle mb-24">{item.producer}</div>
+                <div className="card-subtitle mb-24">{item.prix}€</div>
                 <Button onClick={this.onClicked.bind(this,item)}>Voir le détail</Button>
               </Card>
             </Grid>
@@ -139,7 +69,7 @@ export default class ProductsConsumer extends React.Component {
           </DialogTitle>
           <DialogContent dividers>
             <div style={{overflowY: "auto"}} >
-              <b>Category : </b>{this.getCategoryInDialogFromId(this.state.itemToDisplay?.categoryId)}
+              <b>Category : </b>{this.state.itemToDisplay?.category}
             </div>
           </DialogContent>
           <DialogActions>
