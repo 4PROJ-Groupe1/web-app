@@ -17,6 +17,7 @@ import supplyRoutes from "./views/supply/SupplyRoutes";
 import monitoringRoutes from "./views/monitoring/MonitoringRoutes";
 import statsRoutes from "./views/stats/StatsRoutes";
 import userRoutes from "./views/user/UserRoutes";
+import shelfRoutes from "./views/shelf/ShelfRoutes";
 
 const redirectRoute = [
   {
@@ -47,6 +48,7 @@ const routes = [
     ...formsRoutes,
     ...mapRoutes,
     ...userRoutes,
+    ...shelfRoutes,
     ...redirectRoute,
     ...errorRoute,
 ];

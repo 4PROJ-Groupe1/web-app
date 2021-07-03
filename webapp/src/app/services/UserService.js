@@ -12,11 +12,11 @@ class UserService {
         return fetch(window.API_URL+this.registerApiPath, requestOptions);
     }
 
-    addProducer(name, surname, email, password) {
+    addProducer(name, surname, company, email, password) {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: name, surname: surname, email: email, password: password, producer: true})
+            body: JSON.stringify({ name: name, surname: surname, email: email, password: password, producer: true, company: company})
         };
 
         return fetch(window.API_URL+this.registerApiPath, requestOptions);

@@ -30,6 +30,11 @@ if (user.role) {
         icon: "local_shipping"
       },
       {
+        name: "Shelf management",
+        path: "/shelf",
+        icon: "local_shipping"
+      },
+      {
         name: "Monitoring",
         path: "/monitoring",
         icon: "visibility"

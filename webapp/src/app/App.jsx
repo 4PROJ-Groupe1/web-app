@@ -17,32 +17,6 @@ const App = () => {
   //console.log("environment : ", process.env.NODE_ENV);
   window.API_URL = process.env.NODE_ENV === 'production' ? 'https://api.brilliant-market.com/api' : 'http://localhost:8082/api';
   //console.log("api url : ", window.API_URL);
-  fetch("https://api.brilliant-market.com/")
-      .then(
-          (response) => {
-            console.log("Appel / :", response);
-          },
-          (error) => {
-            console.log("Appel / erreur :", error);
-          }
-      ).then(
-          (result) => {
-              console.log("Appel / resultat:", result);
-          }
-      );
-  fetch("https://api.brilliant-market.com/api/test")
-      .then(
-          (response) => {
-            console.log("Appel /api/test :", response);
-          },
-          (error) => {
-            console.log("Appel /api/test erreur :", error);
-          }
-      ).then(
-          (result) => {
-              console.log("Appel /api/test resultat:", result);
-          }
-      );
   return (
     <AppContext.Provider value={{ routes }}>
       <Provider store={Store}>

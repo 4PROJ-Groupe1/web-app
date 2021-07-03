@@ -251,7 +251,7 @@ class ProductCategory extends Component {
                         >
                         </AgGridReact>
                     </div>
-                    <SimpleCard title={"Add a producer account"}>
+                    <SimpleCard title={"Add a product category"}>
                         <ValidatorForm ref="form" onSubmit={this.handleFormSubmit}>
                             <TextValidator
                                 className="mb-24 w-100"

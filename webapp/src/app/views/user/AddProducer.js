@@ -106,6 +106,7 @@ class AddProducer extends Component {
         this.state = {
             name: "",
             surname: "",
+            company: "",
             email: "",
             password: "",
             displayError: false,
@@ -125,7 +126,7 @@ class AddProducer extends Component {
     };
 
     handleFormSubmit = event => {
-        UserService.addProducer(this.state.name, this.state.surname, this.state.email,this.state.password).then(
+        UserService.addProducer(this.state.name, this.state.surname, this.state.company, this.state.email,this.state.password).then(
             res => {
                 res.json().then(
                     response => {
@@ -157,7 +158,7 @@ class AddProducer extends Component {
     }
 
     render() {
-        let { name, surname, email, password } = this.state;
+        let { name, surname, email, password, company } = this.state;
         let { classes } = this.props;
         return (
             <div className="m-sm-30">
@@ -203,6 +204,17 @@ class AddProducer extends Component {
                                 type="text"
                                 name="surname"
                                 value={surname}
+                                validators={["required"]}
+                                errorMessages={["this field is required"]}
+                            />
+                            <TextValidator
+                                className="mb-24 w-100"
+                                variant="outlined"
+                                label="Company"
+                                onChange={this.handleChange}
+                                type="text"
+                                name="company"
+                                value={company}
                                 validators={["required"]}
                                 errorMessages={["this field is required"]}
                             />
