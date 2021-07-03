@@ -54,6 +54,9 @@ class JwtAuthService {
   // You need to send http requst with existing token to your server to check token is valid
   // This method is being used when user logged in & app is reloaded
   loginWithToken = () => {
+    if (!window.localStorage.getItem("auth_user")) {
+      window.localStorage.setItem("auth_user", JSON.stringify({}));
+    }
     return new Promise((resolve, reject) => {
       userService.verifyToken(window.localStorage.getItem("jwt_token")).then(
           result => {

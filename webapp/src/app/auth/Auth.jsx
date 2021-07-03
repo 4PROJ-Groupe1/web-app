@@ -17,7 +17,7 @@ class Auth extends Component {
     // This is only for demo purpose
     // You should remove this
     //this.props.setUserData(localStorageService.getItem("auth_user"));
-    
+
     // Check current token is valid on page load/reload
     this.checkJwtAuth();
 

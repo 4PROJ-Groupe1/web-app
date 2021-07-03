@@ -89,7 +89,6 @@ class MatxLayout extends Component {
   render() {
     const { settings } = this.props;
     const Layout = MatxLayouts[settings.activeLayout];
-
     return <Layout {...this.props} />;
   }
 }
