@@ -15,7 +15,7 @@ import { resetPassword } from "../../redux/actions/LoginActions";
 
 class ForgotPassword extends Component {
   state = {
-    email: "watson@example.com"
+    email: ""
   };
   handleChange = event => {
     event.persist();
