@@ -13,7 +13,6 @@ export default class ProductsProducer extends React.Component {
     super(props);
     this.state = {
       user: this.props.user,
-      dataItem: this.props.dataItem || [],
       products: this.props.products,
       productsOfProducer: [],
       items: [],
@@ -47,24 +46,6 @@ export default class ProductsProducer extends React.Component {
         }
     )
 
-  }
-
-  getEntityFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const entity of dataTemp.entity) {
-      if (id.value == entity.id) {
-        return entity.name;
-      }
-    }
-  }
-
-  getCategoryFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const category of dataTemp.itemCategory) {
-      if (id.value == category.id) {
-        return category.name
-      }
-    }
   }
 
   itemsFormatter = (items) => {

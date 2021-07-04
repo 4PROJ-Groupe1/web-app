@@ -4,7 +4,6 @@ import ProductsConsumer from "./ProductsConsumer";
 import ProductsProducer from "./ProductsProducer";
 import ProductsSupermarket from "./ProductsSupermarket";
 import {apiLinkProd, apiLinkDev} from "../../constantes.jsx"
-import data from "../../database.json";
 import StockService from "../../services/StockService";
 
 class Products extends Component {
@@ -61,13 +60,13 @@ class Products extends Component {
                     <SnackbarCustom variant="error" message="test" displayError={this.state.displayError}/> */}
 
                         {this.state.user.role === 'consumer' && this.state.products.length !== 0 && 
-                            <ProductsConsumer dataItem={data} products={this.state.products} style={{overflowY: "auto"}} user={this.state.user}/>
+                            <ProductsConsumer products={this.state.products} style={{overflowY: "auto"}} user={this.state.user}/>
                         }
                         {this.state.user.role === 'producer' && this.state.products.length !== 0 && 
-                            <ProductsProducer dataItem={data} products={this.state.products} user={this.state.user}/>
+                            <ProductsProducer products={this.state.products} user={this.state.user}/>
                         }
                         {this.state.user.role === 'supermarket' && this.state.products.length !== 0 &&
-                            <ProductsSupermarket dataItem={data} products={this.state.products} style={{overflowY: "auto"}} user={this.state.user}/>
+                            <ProductsSupermarket products={this.state.products} style={{overflowY: "auto"}} user={this.state.user}/>
                         }
                 </div>
             </div>

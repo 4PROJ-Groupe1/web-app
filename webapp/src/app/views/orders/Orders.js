@@ -4,7 +4,6 @@ import OrdersSupermarket from "./OrdersSupermarket";
 import OrdersConsumer from "./OrdersConsumer";
 import OrdersProducer from "./OrdersProducer";
 import {apiLinkProd} from "../../constantes.jsx"
-import data from "../../database.json";
 import UserService from "../../services/UserService";
 
 class Orders extends Component {
@@ -64,13 +63,13 @@ class Orders extends Component {
                 />
                 <div className="m-sm-30">
                         {this.state.user.role === 'supermarket' && this.state.consumers.length !==0 && this.state.producers.length !==0 &&
-                            <OrdersSupermarket dataItem={data} user={this.state.user} consumers={this.state.consumers} producers={this.state.producers}/>
+                            <OrdersSupermarket user={this.state.user} consumers={this.state.consumers} producers={this.state.producers}/>
                         }
                         {this.state.user.role === 'consumer' && 
-                            <OrdersConsumer dataItem={data} user={this.state.user}/>
+                            <OrdersConsumer user={this.state.user}/>
                         }
                         {this.state.user.role === 'producer' && 
-                            <OrdersProducer dataItem={data} user={this.state.user}/>
+                            <OrdersProducer user={this.state.user}/>
                         }
                 </div>
             </div>

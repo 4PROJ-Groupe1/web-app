@@ -13,28 +13,12 @@ export default class ProductsSupermarket extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataItem: this.props.dataItem || [],
       products: this.props.products || [],
-      supermarketItems: [],
       dialogOpen: false,
       itemToDisplay: null,
       ProductDialogOpen: false,
       productToAdd: []
     }
-  }
-
-  componentDidMount() {
-    let dataTemp = this.state.dataItem;
-    let supermarketItemsTemp = this.state.supermarketItems
-    for (const supermarketItem of dataTemp.supermarketItem) {
-      if (this.state.dataItem.item.some(item => supermarketItem.itemId === item.id)    ) {
-        supermarketItemsTemp.push(supermarketItem);
-      }
-    }
-    this.setState({
-      supermarketItems: supermarketItemsTemp,
-      products: this.props.products
-    })
   }
 
   onDeleteClicked = () => {

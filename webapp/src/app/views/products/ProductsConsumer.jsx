@@ -11,23 +11,12 @@ export default class ProductsConsumer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataItem: this.props.dataItem || [],
       user: this.props.user || null,
       products: this.props.products,
       Items: [],
       dialogOpen: false,
       itemToDisplay: null
     }
-  }
-
-  componentDidMount() {
-    let itemsTemp = [];
-    this.state.dataItem.item.forEach(item => {
-      itemsTemp.push(item)
-    });
-    this.setState({
-      Items: itemsTemp
-    });
   }
 
   handleCloseDialog = () => {
