@@ -394,11 +394,7 @@ class Shelf extends Component {
 
         const gridOptions = {
             pagination: true,
-            paginationPageSize: 10,
-            localeText: {
-                to: "à",
-                of: "sur",
-            }
+            paginationPageSize: 10
         }
 
         const onColumnResized = (params) => {

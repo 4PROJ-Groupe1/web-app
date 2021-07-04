@@ -229,11 +229,7 @@ class Supply extends Component {
     
         const gridOptions = {
             pagination: true,
-            paginationPageSize: 50,
-            localeText: {
-                to: "à",
-                of: "sur",
-            }
+            paginationPageSize: 50
         }
         
         const onColumnResized = (params) => {

@@ -34,16 +34,11 @@ if (user.role) {
         path: "/shelf",
         icon: "local_shipping"
       },
-      {
-        name: "Monitoring",
-        path: "/monitoring",
-        icon: "visibility"
-      },
-      {
-        name: "Stats",
-        path: "/stats",
-        icon: "insert_chart_outlined"
-      },
+      // {
+      //   name: "Stats",
+      //   path: "/stats",
+      //   icon: "insert_chart_outlined"
+      // },
       {
         name: "Add producer",
         path: "/addProducer",
@@ -66,11 +61,6 @@ if (user.role) {
         name: "Orders",
         path: "/orders",
         icon: "local_shipping"
-      },
-      {
-        name: "Supply",
-        path: "/supply",
-        icon: "inventory"
       }
     ]
   } else if (user.role === "consumer") {

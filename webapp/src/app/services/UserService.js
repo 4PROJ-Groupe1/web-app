@@ -15,7 +15,7 @@ class UserService {
     addProducer(name, surname, company, email, password) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token")},
             body: JSON.stringify({ name: name, surname: surname, email: email, password: password, producer: true, company: company})
         };
 

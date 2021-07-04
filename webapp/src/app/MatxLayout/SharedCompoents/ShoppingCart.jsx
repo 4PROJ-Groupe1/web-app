@@ -14,15 +14,16 @@ import {
   deleteProductFromCart,
   updateCartAmount
 } from "app/redux/actions/EcommerceActions";
+import DemoService from "../../services/demoService";
 
 let cartListLoaded = false;
 
 function ShoppingCart(props) {
+  let cartList = []
   const {
     container,
     theme,
     settings,
-    cartList = [],
     getCartList,
     deleteProductFromCart,
     updateCartAmount,
@@ -32,7 +33,27 @@ function ShoppingCart(props) {
   const [panelOpen, setPanelOpen] = React.useState(false);
 
   if (!cartListLoaded) {
-    getCartList(user.userId);
+    // getCartList(user.userId);
+    DemoService.getPanier().then(
+        res => {
+          res.json().then(
+              response => {
+                if (res.ok) {
+                  console.log('getPanier response : ', response);
+                  cartList = response.produits;
+                } else {
+                  console.log("getPanier failed : ", response.error);
+                }
+              },
+              error => {
+                console.log('getPanier parse error : ', error);
+              }
+          );
+        },
+        err => {
+          console.log('getPanier error : ', err);
+        }
+    )
     cartListLoaded = true;
   }
 
@@ -76,7 +97,7 @@ function ShoppingCart(props) {
 
           {cartList.map(product => (
             <div
-              key={product.id}
+              key={product.idProduit}
               className="mini-cart__item flex flex-middle flex-space-between py-16 px-8"
             >
               <div className="flex flex-column mr-8">
@@ -107,12 +128,12 @@ function ShoppingCart(props) {
                 </IconButton>
               </div>
               <div className="mr-8">
-                <img src={product.imgUrl} alt={product.title} />
+                <img src={product.imgUrl} alt={product.nomProduit} />
               </div>
               <div className="mr-8 text-center">
-                <h6 className="m-0 mb-4">{product.title}</h6>
+                <h6 className="m-0 mb-4">{product.nomProduit}</h6>
                 <small className="text-muted">
-                  ${product.price} x {product.amount}
+                  ${product.prix} x {product.quantite}
                 </small>
               </div>
               <IconButton

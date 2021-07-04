@@ -4,7 +4,7 @@ class ShelfService {
     getInfosRayons() {
         const requestOptions = {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") }
         };
 
         return fetch(window.API_URL+this.shelfApiPath + '/getInfosRayons', requestOptions);
@@ -13,7 +13,7 @@ class ShelfService {
     addRayon(rayon) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'nomRayon': rayon})
         };
 
@@ -23,7 +23,7 @@ class ShelfService {
     addProduitRayon(idRayon, idProduit, quantiteMax) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'idRayon': idRayon, 'idProduit': idProduit, 'quantiteMax': quantiteMax})
         };
 
@@ -33,7 +33,7 @@ class ShelfService {
     fillRayon(idRayon) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'idRayon': idRayon})
         };
 

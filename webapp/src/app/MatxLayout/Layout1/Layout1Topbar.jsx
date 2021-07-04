@@ -17,6 +17,7 @@ import { isMdScreen } from "utils";
 import NotificationBar from "../SharedCompoents/NotificationBar";
 import { Link } from "react-router-dom";
 import ShoppingCart from "../SharedCompoents/ShoppingCart";
+import CartDemo from "../SharedCompoents/CartDemo";
 
 const styles = theme => ({
   root: {
@@ -95,9 +96,9 @@ class Layout1Topbar extends Component {
               </div>
               <div className="flex flex-middle">
 
-                <NotificationBar />
+                {/*<NotificationBar />*/}
 
-                <ShoppingCart></ShoppingCart>
+                <CartDemo/>
 
                 <MatxMenu
                   menuButton={this.displayUserPhoto()}

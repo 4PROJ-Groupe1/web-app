@@ -5,7 +5,7 @@ class StockService {
     getCategories() {
         const requestOptions = {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") }
         };
 
         return fetch(window.API_URL+this.stockApiPath + '/getCategories', requestOptions);
@@ -14,7 +14,7 @@ class StockService {
     addCategory(categorie) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'categorie': categorie})
         };
 
@@ -26,7 +26,7 @@ class StockService {
     getLots() {
         const requestOptions = {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") }
         };
 
         return fetch(window.API_URL+this.stockApiPath + '/getInfosLot', requestOptions);
@@ -34,7 +34,7 @@ class StockService {
     getLot(idLot) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'idLot': idLot})
         };
 
@@ -44,7 +44,7 @@ class StockService {
     addLot(idProduit, numLot, quantity, expiration) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'idProduit': idProduit, 'numLot': numLot, 'quantity': quantity, 'expiration': expiration})
         };
 
@@ -56,7 +56,7 @@ class StockService {
     getProducts() {
         const requestOptions = {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") }
         };
 
         return fetch(window.API_URL+this.stockApiPath + '/getInfosProduit', requestOptions);
@@ -65,7 +65,7 @@ class StockService {
     getProduit(idProduit) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'idProduit': idProduit})
         };
 
@@ -75,7 +75,7 @@ class StockService {
     getProduitByIdProducer(idProducer) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'idProducer': idProducer})
         };
 
@@ -85,7 +85,7 @@ class StockService {
     deleteProduit(idProduit) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'idProduit': idProduit})
         };
 
@@ -95,7 +95,7 @@ class StockService {
     addProduit(name, category, producer, prix) {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
             body: JSON.stringify({'name': name, 'category': category, 'producer': producer, 'prix': prix})
         };
 
@@ -107,7 +107,7 @@ class StockService {
     getRayons() {
         const requestOptions = {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") }
         };
 
         return fetch(window.API_URL+this.stockApiPath + '/getInfosRayons', requestOptions);
