@@ -47,7 +47,7 @@ export default class ProductsConsumer extends React.Component {
                 <br/>
                 <div className="card-subtitle mb-24">{item.producer}</div>
                 <div className="card-subtitle mb-24">{item.prix}€</div>
-                <Button onClick={this.onClicked.bind(this,item)}>Voir le détail</Button>
+                <Button onClick={this.onClicked.bind(this,item)}>Details</Button>
               </Card>
             </Grid>
           )}
