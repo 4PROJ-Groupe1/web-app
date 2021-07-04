@@ -5,8 +5,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-
-// TODO : Afficher commandes en fonction de l'user connecté
+import CommandesService from "../../services/CommandesService";
+import StockService from "../../services/StockService";
+import {SimpleCard} from "../../../matx";
 
 export default class OrdersConsumer extends React.Component {
   constructor(props) {
@@ -14,6 +15,9 @@ export default class OrdersConsumer extends React.Component {
     this.state = {
       dataItem: this.props.dataItem || [],
       user: this.props.user || null,
+      supermarketOrders: [],
+      supermarketOrdersConsumer: [],
+      lots: [],
       dialogOpen: false,
       orderToDisplay: null,
       orders: []
@@ -21,46 +25,70 @@ export default class OrdersConsumer extends React.Component {
   }
 
   componentDidMount() {
-    console.log("userid : ",this.state.user);
-    let dataTemp = this.state.dataItem;
-    let ordersTemp = this.state.orders;
-    for (const order of dataTemp.supermarketOrder) {
-      if (order.userId == this.state.user?.id) {
-        ordersTemp.push(order);
+    CommandesService.getSupermarketOrders().then(
+        res => {
+            res.json().then(
+                response => {
+                    if (res.ok) {
+                        console.log('getSupermarketOrders response : ', response);
+                        let supermarketOrdersConsumerTemp = [];
+                        response.supermarketOrders.forEach(supermarketOrder => {
+                          if (supermarketOrder.consumerId === this.state.user.id) {
+                            supermarketOrdersConsumerTemp.push(supermarketOrder);
+                          }
+                        });
+                        this.setState({
+                          supermarketOrders: response.supermarketOrders,
+                          supermarketOrdersConsumer: supermarketOrdersConsumerTemp,
+                        })
+                    } else {
+                        console.log("getSupermarketOrders failed : ", response.error);
+                        // this.setState({displayError: true});
+                        // this.setState({errorMessage: response.error});
+                    }
+                },
+                error => {
+                    console.log('getSupermarketOrders parse error : ', error);
+                }
+            );
+        },
+        err => {
+            console.log('getSupermarketOrders error : ', err);
+        }
+    )
+    StockService.getLots().then(
+        res => {
+            res.json().then(
+                response => {
+                    if (res.ok) {
+                        console.log('getLot response : ', response);
+                        this.setState({lots: response.lots})
+                    } else {
+                        console.log("getLot failed : ", response.error);
+                        // this.setState({displayError: true});
+                        // this.setState({errorMessage: response.error});
+                    }
+                },
+                error => {
+                    console.log('getLot parse error : ', error);
+                }
+            );
+        },
+        err => {
+            console.log('getLot error : ', err);
+        }
+    )
+
+  }
+
+  getLotFromIdInDialog = (id) => {
+    let lotsTemp = this.state.lots;
+    for (const lots of lotsTemp) {
+      if (id == lots._id) {
+        return lots.numLot
       }
     }
 
-    console.log("ordersTemp : ",ordersTemp);
-    this.setState({
-      orders: ordersTemp
-    });
-  }
-
-  getEntityFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const entity of dataTemp.entity) {
-      if (id.value == entity.id) {
-        return entity.name
-      }
-    }
-  }
-
-  getEntityFromIdInDialog = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const entity of dataTemp.entity) {
-      if (id == entity.id) {
-        return entity.name
-      }
-    }
-  }
-
-  itemsFormatter = (items) => {
-    let quantity = 0;
-    for (const item of items.value) {
-      quantity+=item.quantity
-      
-    }
-    return quantity;
   }
 
   handleCloseDialog = () => {
@@ -79,46 +107,37 @@ export default class OrdersConsumer extends React.Component {
   }
 
   render() {
+    //#region grid def
     const colDef = [
         {
-            "headerName": "supermarket",
-            "field": "supermarketId",
+            "headerName": "Order date",
+            "field": "orderDate",
             "flex": "1",
             "minWidth": "100",
             "resizable": true,
             "suppressMovable": true,
+            "autoHeight": true,
             valueFormatter: (params) => {
-                return this.getEntityFromId(params);
+                return params.value.substring(0,10)
             }
         },
         {
-            "headerName": "date",
-            "field": "date",
+            "headerName": "price",
+            "field": "price",
             "flex": "1",
             "minWidth": "100",
             "resizable": true,
             "suppressMovable": true,
-        },
-        {
-            "headerName": "item quantity",
-            "field": "items",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
+            "autoHeight": true,
             valueFormatter: (params) => {
-                return this.itemsFormatter(params);
+                return params.value + " €"
             }
-        }
+        },
     ];
 
     const gridOptions = {
         pagination: true,
-        paginationPageSize: 50,
-        localeText: {
-            to: "à",
-            of: "sur",
-        }
+        paginationPageSize: 50
     }
     
     const onColumnResized = (params) => {
@@ -126,33 +145,33 @@ export default class OrdersConsumer extends React.Component {
     };
 
     const rowStyle = { whitespace: 'pre-line' };
+    //#endregion
     
-
     return (
-      <div
-          className="ag-theme-material"
-          style={{ height: 300, width: '100%' }}
-      >
-          <AgGridReact
-              onGridReady={this.onGridReady}
-              onColumnResized={onColumnResized}
-              onRowClicked={this.onClicked}
-              rowData={this.state.orders}
-              cellStyle={rowStyle}
-              columnDefs={colDef}
-              gridOptions={gridOptions}
+      <div className="m-sm-30">
+        <SimpleCard title="your orders">
+          <div
+              className="ag-theme-material"
+              style={{ height: 300, width: '100%' }}
           >
-          </AgGridReact>
+            <AgGridReact
+                onGridReady={this.onGridReady}
+                onColumnResized={onColumnResized}
+                onRowClicked={this.onClicked}
+                rowData={this.state.supermarketOrdersConsumer}
+                cellStyle={rowStyle}
+                columnDefs={colDef}
+                gridOptions={gridOptions}
+            >
+            </AgGridReact>
+          </div>
+          </SimpleCard>
           <Dialog open={this.state.dialogOpen} onClose={this.handleCloseDialog}>
-            <DialogTitle id="customized-dialog-title">
-              N° de commande : {this.state.orderToDisplay?.id}
-            </DialogTitle>
             <DialogContent dividers>
               <div style={{overflowY: "auto"}} >
-                <b>{this.getEntityFromIdInDialog(this.state.orderToDisplay?.supermarketId)} :</b>
-                {this.state.orderToDisplay?.items?.map((item, index) => 
+                {this.state.orderToDisplay?.lots?.map((item, index) => 
                   <div key={index}> 
-                    - {item.quantity} {item.name}
+                    - <b>lot number : {this.getLotFromIdInDialog(item.idLot)}</b>, quantity : {item.quantity}
                   </div>
                 )}
               </div>

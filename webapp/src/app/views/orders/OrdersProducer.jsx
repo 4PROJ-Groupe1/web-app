@@ -6,6 +6,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import CommandesService from "../../services/CommandesService";
+import StockService from "../../services/StockService";
+import {SimpleCard} from "../../../matx";
 
 // TODO : Attendre le retour api de pol avec uniquement les commande du producer connecté
 
@@ -14,25 +17,69 @@ export default class OrdersProducer extends React.Component {
     super(props);
     this.state = {
       dataItem: this.props.dataItem || [],
+      user: this.props.user || null,
+      supermarketOrders: [],
+      supermarketOrdersProducer: [],
+      lots: [],
       dialogOpen: false,
       orderToDisplay: null
     }
   }
 
   componentDidMount() {
-      fetch(`${apiLinkProd}/test`)
-          .then(
-              (response) => {
-                  //console.log("AppelOrder / :", response);
-              },
-              (error) => {
-                  //console.log("AppelOrder / erreur :", error);
-              }
-          ).then(
-              (result) => {
-                  //console.log("AppelOrder / resultat:", result);
-              }
-          );
+    CommandesService.getSupermarketOrders().then(
+        res => {
+            res.json().then(
+                response => {
+                    if (res.ok) {
+                        console.log('getSupermarketOrders response : ', response);
+                        let supermarketOrdersProducerTemp = [];
+                        response.supermarketOrders.forEach(supermarketOrder => {
+                          if (supermarketOrder.consumerId === this.state.user.id) {
+                            supermarketOrdersProducerTemp.push(supermarketOrder);
+                          }
+                        });
+                        this.setState({
+                          supermarketOrders: response.supermarketOrders,
+                          supermarketOrdersProducer: supermarketOrdersProducerTemp,
+                        })
+                    } else {
+                        console.log("getSupermarketOrders failed : ", response.error);
+                        // this.setState({displayError: true});
+                        // this.setState({errorMessage: response.error});
+                    }
+                },
+                error => {
+                    console.log('getSupermarketOrders parse error : ', error);
+                }
+            );
+        },
+        err => {
+            console.log('getSupermarketOrders error : ', err);
+        }
+    )
+    StockService.getLots().then(
+        res => {
+            res.json().then(
+                response => {
+                    if (res.ok) {
+                        console.log('getLot response : ', response);
+                        this.setState({lots: response.lots})
+                    } else {
+                        console.log("getLot failed : ", response.error);
+                        // this.setState({displayError: true});
+                        // this.setState({errorMessage: response.error});
+                    }
+                },
+                error => {
+                    console.log('getLot parse error : ', error);
+                }
+            );
+        },
+        err => {
+            console.log('getLot error : ', err);
+        }
+    )
   }
 
   onGridReady(params) {
@@ -42,46 +89,14 @@ export default class OrdersProducer extends React.Component {
     params.api.resetRowHeights();
   }
 
-  getUserFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    dataTemp.user.forEach(user => {
-      if (id.value == user.id) {
-        console.log(user.name);
-        return user.name
-      }
-    });
-  }
-
-  getEntityFromId = (id) => {
-    let dataTemp = this.state.dataItem;
-    for (const entity of dataTemp.entity) {
-      if (id.value == entity.id) {
-        return entity.name
+  getLotFromIdInDialog = (id) => {
+    let lotsTemp = this.state.lots;
+    for (const lots of lotsTemp) {
+      if (id == lots._id) {
+        return lots.numLot
       }
     }
-  }
 
-  getEntityFromIdInDialog = (id) => {
-    console.log(id)
-    let dataTemp = this.state.dataItem;
-    for (const entity of dataTemp.entity) {
-      if (id == entity.id) {
-        return entity.name
-      }
-    }
-  }
-
-  addressFormatter = (address) => {
-    return address.value.street+", "+address.value.zip+", "+address.value.city;
-  }
-
-  itemsFormatter = (items) => {
-    let quantity = 0;
-    for (const item of items.value) {
-      quantity+=item.quantity
-      
-    }
-    return quantity;
   }
 
   handleCloseDialog = () => {
@@ -99,36 +114,18 @@ export default class OrdersProducer extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    //#region grid def
     const colDef = [
         {
-            "headerName": "order date",
+            "headerName": "Order date",
             "field": "orderDate",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
-            "autoHeight": true
-        },
-        {
-            "headerName": "delivery date",
-            "field": "deliveryDate",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
-            "autoHeight": true
-        },
-        {
-            "headerName": "address",
-            "field": "address",
             "flex": "1",
             "minWidth": "100",
             "resizable": true,
             "suppressMovable": true,
             "autoHeight": true,
             valueFormatter: (params) => {
-              return this.addressFormatter(params);
+                return params.value.substring(0,10)
             }
         },
         {
@@ -138,53 +135,16 @@ export default class OrdersProducer extends React.Component {
             "minWidth": "100",
             "resizable": true,
             "suppressMovable": true,
-            "autoHeight": true
-        },
-        {
-            "headerName": "item quantity",
-            "field": "items",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
             "autoHeight": true,
             valueFormatter: (params) => {
-              return this.itemsFormatter(params);
+                return params.value + " €"
             }
         },
-        {
-            "headerName": "supermarket",
-            "field": "supermarketId",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
-            "autoHeight": true,
-            valueFormatter: (params) => {
-              return this.getEntityFromId(params);
-            }
-        },
-        {
-            "headerName": "producer",
-            "field": "producerId",
-            "flex": "1",
-            "minWidth": "100",
-            "resizable": true,
-            "suppressMovable": true,
-            "autoHeight": true,
-            valueFormatter: (params) => {
-              return this.getEntityFromId(params);
-            }
-        }
     ];
 
     const gridOptions = {
         pagination: true,
-        paginationPageSize: 50,
-        localeText: {
-            to: "à",
-            of: "sur",
-        }
+        paginationPageSize: 50
     }
     
     const onColumnResized = (params) => {
@@ -192,31 +152,32 @@ export default class OrdersProducer extends React.Component {
     };
 
     const rowStyle = { whitespace: 'pre-line' };
+    //#endregion
 
     return (
-      <div
-          className="ag-theme-material"
-          style={{ height: 300, width: '100%' }}
-      >
-        <AgGridReact
-          onGridReady={this.onGridReady}
-          onColumnResized={onColumnResized}
-          onRowClicked={this.onClicked}
-          rowData={this.state.dataItem.producerOrder}
-          cellStyle={rowStyle}
-          columnDefs={colDef}
-          gridOptions={gridOptions}>
-        </AgGridReact>
+      <div className="m-sm-30">
+        <SimpleCard title="your orders">
+          <div
+              className="ag-theme-material"
+              style={{ height: 300, width: '100%' }}
+          >
+            <AgGridReact
+              onGridReady={this.onGridReady}
+              onColumnResized={onColumnResized}
+              onRowClicked={this.onClicked}
+              rowData={this.state.supermarketOrdersProducer}
+              cellStyle={rowStyle}
+              columnDefs={colDef}
+              gridOptions={gridOptions}>
+            </AgGridReact>
+          </div>
+        </SimpleCard>
           <Dialog open={this.state.dialogOpen} onClose={this.handleCloseDialog}>
-            <DialogTitle id="customized-dialog-title">
-              N° de commande : {this.state.orderToDisplay?.id}
-            </DialogTitle>
             <DialogContent dividers>
               <div style={{overflowY: "auto"}} >
-                <b>{this.getEntityFromIdInDialog(this.state.orderToDisplay?.supermarketId)} :</b>
-                {this.state.orderToDisplay?.items?.map((item, index) => 
+                {this.state.orderToDisplay?.lots?.map((item, index) => 
                   <div key={index}> 
-                    - {item.quantity} {item.name}
+                    - <b>lot number : {this.getLotFromIdInDialog(item.idLot)}</b>, quantity : {item.quantity}
                   </div>
                 )}
               </div>
@@ -227,8 +188,6 @@ export default class OrdersProducer extends React.Component {
               </Button>
             </DialogActions>
           </Dialog>
-          
-
       </div>
     );
   }

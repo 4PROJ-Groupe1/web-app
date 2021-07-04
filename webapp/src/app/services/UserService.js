@@ -32,6 +32,25 @@ class UserService {
         return fetch(window.API_URL+this.userApiPath+"/login", requestOptions);
     }
 
+    getUser(id) {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") },
+            body: JSON.stringify({ "id": id })
+        };
+
+        return fetch(window.API_URL+this.userApiPath+"/getUser", requestOptions);
+    }
+
+    getAllUser() {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("jwt_token") }
+        };
+
+        return fetch(window.API_URL+this.userApiPath+"/getAllUser", requestOptions);
+    }
+
     verifyToken(token) {
         const requestOptions = {
             method: 'POST',
