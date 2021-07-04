@@ -177,7 +177,7 @@ class SignIn extends Component {
             <Grid container>
               <Grid item lg={5} md={5} sm={5} xs={12}>
                 <div className="p-32 flex flex-center flex-middle h-100">
-                  <img src="/assets/images/illustrations/dreamer.svg" alt="" />
+                  <img src="/store.png" alt="" />
                 </div>
               </Grid>
               <Grid item lg={7} md={7} sm={7} xs={12}>
@@ -223,7 +223,7 @@ class SignIn extends Component {
                           disabled={this.props.login.loading}
                           type="submit"
                         >
-                          Sign in to Enter Dashboard
+                          Sign in
                         </Button>
                         {this.props.login.loading && (
                           <CircularProgress
@@ -242,14 +242,6 @@ class SignIn extends Component {
                         Sign up
                       </Button>
                     </div>
-                    <Button
-                      className="text-primary"
-                      onClick={() =>
-                        this.props.history.push("/session/forgot-password")
-                      }
-                    >
-                      Forgot password?
-                    </Button>
                   </ValidatorForm>
                 </div>
               </Grid>
